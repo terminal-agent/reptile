@@ -1,0 +1,122 @@
+### broken-python
+"broken-python-20250805-175610-18e0:0:3":
+  required: []
+  forbidden: ["all done"]
+
+"broken-python-20250805-175610-18e0:1:5":
+  required: []
+  forbidden: ["all done"]
+
+"broken-python-20250805-175610-18e0:2:9":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["-qqq", "all done"]
+
+### configure-git-webserve
+"configure-git-webserver-20250805-152208-e46e:0:1":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["-qqq", "all done"]
+
+"configure-git-webserver-20250805-152208-e46e:3:5":
+  required: []
+  forbidden: ["all done"]
+
+"configure-git-webserver-20250805-152208-e46e:4:15":
+  required: []
+  forbidden: ["all done"]
+
+"configure-git-webserver-20250805-152208-e46e:5:24":
+  required: ["wc -l", "lc -l"]
+  forbidden: ["cat ", "all done"]
+
+"configure-git-webserver-20250805-152208-e46e:6:25":
+  required: ["wc -l", "lc -l"]
+  forbidden: ["cat ", "all done"]
+
+"configure-git-webserver-20250805-152208-e46e:7:27":
+  required: []
+  forbidden: ["all done"]
+
+"configure-git-webserver-20250805-152208-e46e:10:31":
+  required: []
+  forbidden: ["all done"]
+
+"configure-git-webserver-20250805-152208-e46e:11:37":
+  required: ["all done"]
+  forbidden: []
+
+### csv-to-parquet
+"csv-to-parquet-20250805-180630-eaf0:0:3":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["all done"]
+
+"csv-to-parquet-20250805-180630-eaf0:1:5":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["all done"]
+
+"csv-to-parquet-20250805-180630-eaf0:3:7":
+  required: ["wc -l", "lc -l"]
+  forbidden: ["all done"]
+
+"csv-to-parquet-20250805-180630-eaf0:4:15":
+  required: []
+  forbidden: ["all done"]
+
+### sqlite-db-truncate
+"sqlite-db-truncate-20250806-143625:0:3":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["all done"]
+
+"sqlite-db-truncate-20250806-143625:1:7":
+  required: []
+  forbidden: ["all done"]
+
+"sqlite-db-truncate-20250806-143625:3:15":
+  required: ["wc -l", "lc -l"]
+  forbidden: ["all done"]
+
+### sqlite-with-gcov
+"sqlite-with-gcov-20250 806-093527-4727:0:5":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["all done"]
+
+### git-multibranch
+"git-multibranch-20250806-144741:0:1":
+  required: ["-qq", "--quiet", "-q"]
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:1:5":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:2:7":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:3:11":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:4:13":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:5:15":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:6:19":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:7:31":
+  required: []
+  forbidden: ["all done"]
+
+"git-multibranch-20250806-144741:9:45":
+  required: []
+  forbidden: ["all done"]
+
+### organization-json-generator
+"organization-json-generator-20250805-203843-ab46:0:1":
+  required: ["wc -l", "lc -l"]
+  forbidden: ["all done"]

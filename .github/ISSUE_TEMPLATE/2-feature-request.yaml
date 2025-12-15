@@ -1,0 +1,12 @@
+name: 🚀 Feature request
+description: Suggest an idea for this project
+title: "[Feature] "
+
+body:
+- type: textarea
+  attributes:
+    label: Motivation
+    description: |
+      A clear and concise description of the motivation of the feature.
+  validations:
+    required: true

@@ -1,0 +1,81 @@
+### Tianjie added
+"sglang-grep-tree-1-20250707-144905-306e:1:5":
+  required: ["qwen3_moe.py"]
+  forbidden: ["cat "]
+
+"sglang-6709-easy-2-20250703-201121-355f:0:3":
+  required: ["grep-tree", "PPMissingLayer"]
+  forbidden: ["grep -r"]
+
+### Longxu added
+
+##sglang-6709-easy-2
+"sglang-6709-easy-2-20250703-153047-302b:0:1":
+  required: ["PPMissingLayer"]
+  forbidden: ["cat ", "All done"]
+
+##sglang-6709-medium
+"sglang-6709-medium-20250709-200648-4b2e:4:9":
+  required: ["qwen3_moe.py"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-6709-medium-20250703-201748-0331:7:13":
+  required: ["qwen3_moe.py"]
+  forbidden: ["cat ", "All done"]
+
+##sglang-grep-tree-1
+"sglang-grep-tree-1-20250707-144905-306e:7:13":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-201615-4772:6:11":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-201615-4772:2:7":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-194940-bb3a:4:17":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-161831-578b:12:33":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-011517-2322:10:15":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250709-003211-8531:9:15":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250708-213550-eec1:10:9":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250708-210339-1d4c:21:17":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"pyg-grep-tree-1-20250703-150230-8365:1:3":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250708-204134-d544:8:15":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250708-200236-b20c:10:13":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250707-233635-7a9a:17:13":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]
+
+"sglang-grep-tree-1-20250707-191601-a35e:18:15":
+  required: ["ReplicatedLinear"]
+  forbidden: ["cat ", "All done"]

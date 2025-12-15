@@ -1,0 +1,44 @@
+default_stages: [pre-commit, pre-push, manual]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-toml
+      - id: check-ast
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: debug-statements
+      # - id: no-commit-to-branch
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.11
+    hooks:
+      - id: ruff
+        args: [--fix, --select, I]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports, --follow-imports=skip, --check-untyped-defs, --no-implicit-optional, --warn-redundant-casts, --warn-return-any, --explicit-package-bases]
+        additional_dependencies: [types-PyYAML, types-requests]
+        files: ^(autopilot|tools)/.*\.py$
+        exclude: ^autopilot/tools/grep_tree\.py$ # not check the third-party tools
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args:
+          - --skip=*.log,*.txt,*.pyc,*.pyo,*.pyd,*.so,*.egg,*.egg-info,*.whl,*.tar.gz,*.zip
+          - --skip=external
+          - --skip=docs/_static

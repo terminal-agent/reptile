@@ -1,0 +1,56 @@
+name: Unit & Integration Test
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review, closed]
+    branches:
+      - "main"
+
+jobs:
+  test:
+    name: Run unit tests for tools
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-run-test
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: true
+
+      - uses: fregante/setup-git-user@v2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: |
+            /home/runner/.cache/ms-playwright
+          key: playwright
+
+      - name: Install
+        run: |
+          pip install -v -e .[dev]
+          playwright install
+          autopilot config init
+          cat /home/runner/.config/autopilot/config.yaml
+          python .github/workflows/scripts/patch_config.py
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_BASE_URL: ${{ secrets.DEEPSEEK_BASE_URL }}
+          DEEPSEEK_MODEL_NAME: ${{ secrets.DEEPSEEK_MODEL_NAME }}
+
+      - name: Execute Test
+        run: |
+          pytest -v ./tests

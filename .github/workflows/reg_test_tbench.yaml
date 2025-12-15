@@ -1,0 +1,164 @@
+name: Regression Test tbench
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review, closed]
+    branches:
+      - "main"
+
+jobs:
+  test:
+    name: Run batch-eval tests for terminal bench agent tasks
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-run-test
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: 'true'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+
+      - name: Install
+        run: |
+          pip install -v -e .
+          autopilot config init
+          python .github/workflows/scripts/patch_config.py
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL_NAME: ${{ secrets.LLM_MODEL_NAME }}
+
+      # - name: Single-eval
+      #   run: |
+      #     git config --global user.name "github_ci"
+      #     git config --global user.email "github_ci@reptile.com"
+      #     (autopilot evaluate --benchmark terminal_bench --task hello-world --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+      #     # check if "Succeed" is in the output
+      #     if grep -q "Succeed" /tmp/test.out; then
+      #       echo "Succeed"
+      #     else
+      #       echo "Failed"
+      #       exit 1
+      #     fi
+
+      # - name: Single-eval-oracle
+      #   run: |
+      #     git config --global user.name "github_ci"
+      #     git config --global user.email "github_ci@reptile.com"
+      #     (autopilot evaluate --benchmark terminal_bench --task hello-world --interaction oracle --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+      #     # check if "Succeed" is in the output
+      #     if grep -q "Succeed" /tmp/test.out; then
+      #       echo "Succeed"
+      #     else
+      #       echo "Failed"
+      #       exit 1
+      #     fi
+
+      # - name: Batch-eval
+      #   run: |
+      #     git config --global user.name "github_ci"
+      #     git config --global user.email "github_ci@reptile.com"
+      #     (autopilot evaluate --benchmark terminal_bench_sample --eval-criteria rule-based --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+      #     # check if "Succeed" is in the output
+      #     if grep -q "Summary: 2/2 tasks completed successfully" /tmp/test.out; then
+      #       echo "Succeed"
+      #     else
+      #       echo "Failed"
+      #       exit 1
+      #     fi
+
+      - name: Batch-eval-oracle
+        run: |
+          git config --global user.name "github_ci"
+          git config --global user.email "github_ci@reptile.com"
+          (autopilot evaluate --benchmark terminal_bench_sample --interaction oracle --eval-criteria rule-based --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+          # check if "Succeed" is in the output
+          if grep -q "Summary: 2/2 tasks completed successfully" /tmp/test.out; then
+            echo "Succeed"
+          else
+            echo "Failed"
+            exit 1
+          fi
+
+      - name: Session-format-check
+        run: |
+          SESSION_DIR=$(find ~/.cache/autopilot/sessions -name "hello-world-*" -type d | head -1)
+          [[ -n "$SESSION_DIR" ]] || { echo "No hello-world-* directory found"; exit 1; }
+
+          # Check system_prompt.txt
+          SYSTEM_PROMPT="$SESSION_DIR/system_prompt.txt"
+          [[ -f "$SYSTEM_PROMPT" ]] || { echo "system_prompt.txt not found"; exit 1; }
+          if grep -q "{tools_description}" "$SYSTEM_PROMPT"; then
+            echo "ERROR: {tools_description} found in system_prompt.txt"
+            cat "$SYSTEM_PROMPT"
+            exit 1
+          fi
+
+          # Check other_info.yml
+          OTHER_INFO="$SESSION_DIR/other_info.yml"
+          [[ -f "$OTHER_INFO" ]] || { echo "other_info.yml not found"; exit 1; }
+          python -c "import yaml; yaml.safe_load(open('$OTHER_INFO'))" || { echo "Invalid YAML"; exit 1; }
+          grep -q "null" "$OTHER_INFO" && { echo "Contains null value"; exit 1; }
+          grep -q "^model_name: .\+" "$OTHER_INFO" || { echo "model_name missing/empty"; exit 1; }
+          grep -q "^username: .\+" "$OTHER_INFO" || { echo "username missing/empty"; exit 1; }
+          grep -q "^max_steps: .\+" "$OTHER_INFO" || { echo "max_steps missing/empty"; exit 1; }
+          grep -q "^max_current_steps: .\+" "$OTHER_INFO" || { echo "max_current_steps missing/empty"; exit 1; }
+          grep -q "^time_out: .\+" "$OTHER_INFO" || { echo "time_out missing/empty"; exit 1; }
+
+          # Check history.yml
+          HISTORY="$SESSION_DIR/history.yml"
+          [[ -f "$HISTORY" ]] || { echo "history.yml not found"; exit 1; }
+          python -c "import yaml; yaml.safe_load(open('$HISTORY'))" || { echo "Invalid YAML"; exit 1; }
+          grep -q "null" "$HISTORY" && { echo "Contains null value"; exit 1; }
+          python -c "
+          import yaml
+          history = yaml.safe_load(open('$HISTORY'))
+          traj = [item['traj'] for item in history]
+          assert all(traj[i] <= traj[i+1] for i in range(len(traj)-1))
+          " || { echo "traj not constantly increasing"; exit 1; }
+
+          # Check system_prompt.txt contains all tools
+          SYSTEM_PROMPT="$SESSION_DIR/system_prompt.txt"
+          [[ -f "$SYSTEM_PROMPT" ]] || { echo "system_prompt.txt not found"; exit 1; }
+          grep -q "replace" "$SYSTEM_PROMPT" || { echo "replace not found"; exit 1; }
+          grep -q "calculator" "$SYSTEM_PROMPT" || { echo "calculator not found"; exit 1; }
+          grep -q "url2md" "$SYSTEM_PROMPT" || { echo "url2md not found"; exit 1; }
+          grep -q "grep-tree" "$SYSTEM_PROMPT" || { echo "grep-tree not found"; exit 1; }
+          grep -q "inspect" "$SYSTEM_PROMPT" || { echo "inspect not found"; exit 1; }
+
+          echo "All session format checks passed"
+
+      - name: Batch-eval-reload
+        run: |
+          git config --global user.name "github_ci"
+          git config --global user.email "github_ci@reptile.com"
+          mkdir -p ~/.cache/autopilot/sessions
+          mv .github/workflows/data/hello-world-20250924-181059-adcf ~/.cache/autopilot/sessions/
+          (autopilot evaluate --benchmark terminal_bench_sample --reload-eval-path .github/workflows/config/tbench-sample-reload-eval.yml --eval-criteria rule-based --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+          if grep -q "Summary: 2/2 tasks completed successfully" /tmp/test.out; then
+            echo "Succeed"
+          else
+            echo "Failed"
+            exit 1
+          fi
+
+      - name: Check-tmux-cleanup
+        run: |
+          tmux ls | grep -q "autopilot_" && { echo "tmux session not cleaned up"; exit 1; }
+          echo "tmux session cleaned up"
+
+      - name: Check-docker-cleanup
+        run: |
+          docker ps -a | grep -q "terminal_bench" && { echo "docker container not cleaned up"; exit 1; }
+          echo "docker container cleaned up"

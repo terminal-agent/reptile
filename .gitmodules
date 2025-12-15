@@ -1,0 +1,12 @@
+[submodule "external/terminal-bench"]
+	path = external/terminal-bench
+	url = https://github.com/laude-institute/terminal-bench.git
+[submodule "external/swe-bench"]
+	path = external/swe-bench
+	url = https://github.com/terminal-agent/swebench-tasks.git
+[submodule "external/locomo"]
+	path = external/locomo
+	url = https://github.com/snap-research/locomo.git
+[submodule "external/swebench-fork"]
+	path = external/swebench-fork
+	url = https://github.com/terminal-agent/SWE-Bench-Fork.git

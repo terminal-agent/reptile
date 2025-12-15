@@ -1,0 +1,6 @@
+typer
+typing_extensions
+browser-use==0.5.11
+rpyc
+markdownify
+networkx

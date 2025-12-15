@@ -1,0 +1,40 @@
+name: Lint
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review, closed]
+    branches:
+      - "main"
+  push:
+    branches:
+      - "main"
+
+jobs:
+  lint:
+    name: check format with ruff
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-run-test
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+
+      - name: Install
+        run: |
+          pip install ruff==0.12.11
+          pip install pre-commit
+          pre-commit install
+
+      - name: Check format
+        run: |
+          pre-commit run --all-files

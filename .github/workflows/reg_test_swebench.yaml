@@ -1,0 +1,53 @@
+name: Regression Test swebench
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  test:
+    name: Run regression tests for swebench agent tasks
+    runs-on: [ubuntu-latest]
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-run-test
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: 'true'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+
+      - name: Install
+        run: |
+          pip install -v -e .
+          autopilot config init
+          python .github/workflows/scripts/patch_config.py
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL_NAME: ${{ secrets.LLM_MODEL_NAME }}
+
+      - name: Test Swebench-verified Oracle
+        run: |
+          git config --global user.name "github_ci"
+          git config --global user.email "github_ci@reptile.com"
+          python tools/swegym/build_swe_tasks.py --swebench --task_ids pallets__flask-5014
+          (autopilot evaluate --benchmark swebench_verified --interaction oracle --task pallets__flask-5014 --eval-criteria classified-pytest --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+          # check if "Succeed" is in the output
+          if grep -q "Succeed" /tmp/test.out; then
+            echo "Succeed"
+          else
+            echo "Failed"
+            exit 1
+          fi

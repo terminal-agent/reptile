@@ -1,0 +1,31 @@
+[23:56:23] non-canonical mode                                        term.py:301
+[23:56:25] non-canonical mode                                        term.py:301
+           running LLM with auto-vllm -                                llm.py:59
+Streaming: True
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                    Step 0                                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+Xavier is twice as old as Yasmin is. Xavier will 30 years old in six years. What
+is the total of their ages now? Let's think step by step and output the final
+answer after "####".
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                    Step 1                                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                       42
+
+                            Step-by-step reasoning:
+
+ 1 Let's denote Xavier's current age by ( X ) and Yasmin's current age by ( Y ).
+ 2 According to the problem, Xavier is twice as old as Yasmin: [ X = 2Y ]
+ 3 It's also given that Xavier will be 30 years old in six years: [ X + 6 = 30 ]
+ 4 We can solve the equation ( X + 6 = 30 ) for ( X ): [ X = 30 - 6 ] [ X = 24 ]
+ 5 Using the relationship ( X = 2Y ), we can find Yasmin's current age: [ 24 =
+   2Y ] [ Y = \frac{24}{2} ] [ Y = 12 ]
+ 6 Now we can find the total of their ages now: [ X + Y = 24 + 12 ] [ X + Y = 36
+   ]
+
+                                  Conclusion:
+
+                                       36
+
+Therefore, the answer is 36.

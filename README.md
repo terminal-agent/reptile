@@ -17,6 +17,52 @@
 
 Reptile is a Terminal Agent that enables interaction with an LLM agent directly in your terminal. The agent can execute any command or custom CLI tool to accomplish tasks, and users can define their own tools and commands for the agent to utilize.
 
+
+<table>
+<tr>
+<td width="50%">
+<a href="https://terminal-agent.github.io/reptile/get_started/quickstart.html"><strong>Terminal UI</strong></a> (<code>autopilot run</code>)
+</td>
+<td>
+<a href="https://terminal-agent.github.io/reptile/basic_usage/user_interface.html"><strong>Web UI</strong></a> (<code>autopilot gradio</code>)
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+  ![tui-case](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/tui-file-inspection.gif?raw=true)
+
+</td>
+<td>
+
+  ![web-case](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/webui-stock-case-edit.gif?raw=true)
+
+</td>
+</tr>
+<tr>
+  <td>
+    <a href="https://terminal-agent.github.io/reptile/basic_usage/evaluation.html"><strong>Batch Evaluation</strong></a> (<code>autopilot evaluate</code>)
+  </td>
+  <td>
+    <a href="https://github.com/terminal-agent/reptile/blob/main/tools/webTrajViewer.html"><strong>Trajectory Viewer</strong></a>
+  </td>
+<tr>
+<tr>
+
+<td>
+
+![batch-eval](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/batch-eval-tbench.gif?raw=true)
+
+</td>
+
+<td>
+
+![data-viewer](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/data-viewer.gif?raw=true)
+
+</td>
+</tr>
+</table>
+
 ## 🚀 Setup
 
 This section will guide you through the installation and setup of the Terminal Agent.

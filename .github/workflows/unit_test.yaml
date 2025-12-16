@@ -47,9 +47,9 @@ jobs:
           cat /home/runner/.config/autopilot/config.yaml
           python .github/workflows/scripts/patch_config.py
         env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_BASE_URL: ${{ secrets.DEEPSEEK_BASE_URL }}
-          DEEPSEEK_MODEL_NAME: ${{ secrets.DEEPSEEK_MODEL_NAME }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL_NAME: ${{ secrets.LLM_MODEL_NAME }}
 
       - name: Execute Test
         run: |

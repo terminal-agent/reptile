@@ -12,6 +12,7 @@ pydantic
 sphinx
 sphinx-book-theme
 sphinx-copybutton
+sphinx-design
 sphinx-tabs
 nbstripout
 sphinxcontrib-mermaid

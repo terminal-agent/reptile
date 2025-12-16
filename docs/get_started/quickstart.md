@@ -37,9 +37,10 @@ uv pip install -v .
 ```
 
 :::
+
 :::{tab-item} developer mode
 
-```bash
+```
 # if using pip
 pip install -v -e .[dev]
 
@@ -48,6 +49,7 @@ uv pip install -v -e .[dev]
 ```
 
 :::
+
 ::::
 
 ## Run the Agent

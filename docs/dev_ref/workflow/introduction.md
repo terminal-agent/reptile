@@ -1,3 +1,5 @@
+# Workflows
+
 ## Overview
 
 Workflows are the orchestration layer that manages the execution flow of nodes and defines the data flow between them. Each workflow type is designed for specific use cases and interaction patterns.
@@ -18,12 +20,11 @@ Its key features include:
 
 ## Workflow Characteristics
 
-| Workflow Type | Use Case | Human Interaction | Automation Level |
-|---------------|----------|-------------------|------------------|
-| AutopilotWorkflow | Development, Learning, Quality Control | High | Low |
-| EditorWorkflow | Automated Operations, Scalable Tasks | Low | High |
-| OracleWorkflow | Testing, Validation, Benchmarking | None | Full |
-
+| Workflow Type     | Use Case                               | Human Interaction | Automation Level |
+| ----------------- | -------------------------------------- | ----------------- | ---------------- |
+| AutopilotWorkflow | Development, Learning, Quality Control | High              | Low              |
+| EditorWorkflow    | Automated Operations, Scalable Tasks   | Low               | High             |
+| OracleWorkflow    | Testing, Validation, Benchmarking      | None              | Full             |
 
 ## How to create a new workflow
 

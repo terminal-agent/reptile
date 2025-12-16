@@ -16,29 +16,29 @@ Hooks can be executed at different points in the workflow lifecycle:
 We currently provide the following hooks in the `autopilot` library:
 
 - [CheckpointingHook](./checkpointing_hook.md)
-Automatically saves workflow state to Git repositories for version control and recovery.
+  Automatically saves workflow state to Git repositories for version control and recovery.
 
 - [InterruptHook](./interrupt_hook.md)
-Provides timeout and step limit controls for workflow execution with automatic termination.
+  Provides timeout and step limit controls for workflow execution with automatic termination.
 
 - [ReloadHook](./reload_hook.md)
-Enables workflow reloading from remote GitHub repositories for state restoration.
+  Enables workflow reloading from remote GitHub repositories for state restoration.
 
 - [GradioHook](./gradio_hook.md)
-Provides ZMQ communication integration for Gradio-based user interfaces.
+  Provides ZMQ communication integration for Gradio-based user interfaces.
 
 - [TelemetryHook](./telemetry_hook.md)
-Records workflow data to remote repositories (GitHub) or databases (MongoDB).
+  Records workflow data to remote repositories (GitHub) or databases (MongoDB).
 
 ## Hook Characteristics
 
-| Hook Type | Primary Use | Data Storage | Integration |
-|-----------|-------------|--------------|-------------|
-| CheckpointingHook | State Management | Git Repository | Local |
-| InterruptHook | Execution Control | None | Local |
-| ReloadHook | State Restoration | GitHub | Remote |
-| GradioHook | UI Integration | ZMQ Messages | Remote |
-| TelemetryHook | Data Collection | GitHub/MongoDB | Remote |
+| Hook Type         | Primary Use       | Data Storage   | Integration |
+| ----------------- | ----------------- | -------------- | ----------- |
+| CheckpointingHook | State Management  | Git Repository | Local       |
+| InterruptHook     | Execution Control | None           | Local       |
+| ReloadHook        | State Restoration | GitHub         | Remote      |
+| GradioHook        | UI Integration    | ZMQ Messages   | Remote      |
+| TelemetryHook     | Data Collection   | GitHub/MongoDB | Remote      |
 
 ## Add a New Hook
 

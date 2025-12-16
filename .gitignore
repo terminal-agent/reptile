@@ -40,3 +40,4 @@ external/swegym-old
 docs/_build
 *rl_runs*
 *.parquet
+!.github/**/*.yaml

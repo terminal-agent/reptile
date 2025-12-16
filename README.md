@@ -1,8 +1,9 @@
-# Terminal Agent
+# Reptile: Terminal Agent with Human-in-the-Loop Learning
 
 ## 🔎 Table of Contents
 
 - [📝 Overview](#-overview)
+  - [⚡ Functions](#-functions)
 - [🚀 Setup](#-setup)
   - [📍 Run Locally](#-run-locally)
   - [🐳 Run with Docker](#-run-with-docker)
@@ -12,10 +13,64 @@
   - [🔧 Developer Reference](#-developer-reference)
   - [📋 Developer Guideline](#-developer-guideline)
   - [📝 Task Reference](#-task-reference)
+- [📝 Open Blogs](#-open-blogs)
 
 ## 📝 Overview
 
 Reptile is a Terminal Agent that enables interaction with an LLM agent directly in your terminal. The agent can execute any command or custom CLI tool to accomplish tasks, and users can define their own tools and commands for the agent to utilize.
+
+
+Compared with other CLI agents (e.g., Claude Code and Mini SWE-Agent), Reptile stands out for two reasons:
+
+- **Terminal-only beyond Bash-only**: Simple and stateful execution, which is more efficient than bash-only (you don't need to specify the environment in every command). It doesn't require the complicated MCP protocol—just a naive bash tool under the REPL protocol.
+
+- **Human-in-the-Loop Learning**: Users can inspect every step and provide prompt feedback, i.e., give feedback under the USER role or edit the LLM generation under the ASSISTANT role.
+
+### ⚡ Functions
+<table>
+<tr>
+<td width="50%">
+<a href="https://terminal-agent.github.io/reptile/get_started/quickstart.html"><strong>Terminal UI</strong></a> (<code>autopilot run</code>)
+</td>
+<td>
+<a href="https://terminal-agent.github.io/reptile/basic_usage/user_interface.html"><strong>Web UI</strong></a> (<code>autopilot gradio</code>)
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+  ![tui-case](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/tui-file-inspection.gif?raw=true)
+
+</td>
+<td>
+
+  ![web-case](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/webui-stock-case-edit.gif?raw=true)
+
+</td>
+</tr>
+<tr>
+  <td>
+    <a href="https://terminal-agent.github.io/reptile/basic_usage/evaluation.html"><strong>Batch Evaluation</strong></a> (<code>autopilot evaluate</code>)
+  </td>
+  <td>
+    <a href="https://github.com/terminal-agent/reptile/blob/main/tools/webTrajViewer.html"><strong>Trajectory Viewer</strong></a>
+  </td>
+<tr>
+<tr>
+
+<td>
+
+![batch-eval](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/batch-eval-tbench.gif?raw=true)
+
+</td>
+
+<td>
+
+![data-viewer](https://github.com/terminal-agent/terminal-agent.github.io/blob/main/content/blog/workflow/cases/data-viewer.gif?raw=true)
+
+</td>
+</tr>
+</table>
 
 ## 🚀 Setup
 
@@ -95,6 +150,20 @@ autopilot evaluate --benchmark swegym --task pandas-dev__pandas-47504 --terminal
 ### 📝 Task Reference
 
 - [SWE Task Design](docs/task_ref/swe_task_design.md) - Software engineering task design
+
+
+## 📝 Open Blogs
+
+We maintain a series of blog posts to document our progress and share insights.
+
+- [Docs: How to use Reptile as an agent researcher/user](https://terminal-agent.github.io/reptile/)
+- [Workflow: What's the roadmap of Reptile project](https://terminal-agent.github.io/blog/workflow/)
+- [Data Annotation: How to make human annotation more effective](https://terminal-agent.github.io/blog/annotation/)
+- [Terminal-Backend: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
+- [WIP] More efficient Training
+
+We hope our lessons learned and experiences can accelerate the development of autonomous/AGI agents.
+
 
 ## Citation
 

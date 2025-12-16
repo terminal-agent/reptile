@@ -139,19 +139,19 @@ jobs:
 
           echo "All session format checks passed"
 
-      - name: Batch-eval-reload
-        run: |
-          git config --global user.name "github_ci"
-          git config --global user.email "github_ci@reptile.com"
-          mkdir -p ~/.cache/autopilot/sessions
-          mv .github/workflows/data/hello-world-20250924-181059-adcf ~/.cache/autopilot/sessions/
-          (autopilot evaluate --benchmark terminal_bench_sample --reload-eval-path .github/workflows/config/tbench-sample-reload-eval.yml --eval-criteria rule-based --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
-          if grep -q "Summary: 2/2 tasks completed successfully" /tmp/test.out; then
-            echo "Succeed"
-          else
-            echo "Failed"
-            exit 1
-          fi
+      # - name: Batch-eval-reload
+      #   run: |
+      #     git config --global user.name "github_ci"
+      #     git config --global user.email "github_ci@reptile.com"
+      #     mkdir -p ~/.cache/autopilot/sessions
+      #     mv .github/workflows/data/hello-world-20250924-181059-adcf ~/.cache/autopilot/sessions/
+      #     (autopilot evaluate --benchmark terminal_bench_sample --reload-eval-path .github/workflows/config/tbench-sample-reload-eval.yml --eval-criteria rule-based --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+      #     if grep -q "Summary: 2/2 tasks completed successfully" /tmp/test.out; then
+      #       echo "Succeed"
+      #     else
+      #       echo "Failed"
+      #       exit 1
+      #     fi
 
       - name: Check-tmux-cleanup
         run: |

@@ -1,31 +1,56 @@
 # Quickstart
 
-
 ## Installation
 
-We recommend you to create a new virtual environment for the terminal agent.
-
-```sh
-uv venv autopilot --python 3.11
-source autopilot/bin/activate
-```
-
-Then you can install `autopilot` in your virtual environment.
+First of all, let's clone the repository.
 
 ```sh
 # Git clone this repo
 git lfs install  # make sure this succeeds, otherwise you may need to install lfs first.
-git clone git@github.com:Sailor-Agents/Terminal-Agents.git --recurse-submodules
+git clone https://github.com/terminal-agent/reptile.git --recurse-submodules
 
 # Install the autopilot package
 cd Terminal-Agents
+```
 
-# if you are a user, you can install the package as a normal user.
+Then you can install `autopilot` with the command below:
+
+::::{tab-set}
+
+:::{tab-item} pip
+
+```bash
+pip install -v .
+```
+
+:::
+
+:::{tab-item} uv
+
+We recommend you to create a new virtual environment for the terminal agent.
+
+```bash
+uv venv --python 3.11
+source .venv/bin/activate
+
 uv pip install -v .
+```
 
-# if you are a developer, you can install the package in development mode
+:::
+
+:::{tab-item} developer mode
+
+```
+# if using pip
+pip install -v -e .[dev]
+
+# if using uv
 uv pip install -v -e .[dev]
 ```
+
+:::
+
+::::
 
 ## Run the Agent
 

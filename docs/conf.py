@@ -34,6 +34,7 @@ extensions = [
   "sphinxcontrib.mermaid",
   "nbsphinx",
   "sphinx.ext.mathjax",
+  "sphinx_design",
 ]
 
 nbsphinx_allow_errors = True
@@ -102,9 +103,10 @@ language = "en"
 
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-pygments_style = "sphinx"
+pygments_style = "monokai"  # light theme
+pygments_dark_style = "monokai"  # for dark mode
 
-html_theme = "sphinx_book_theme"
+html_theme = "furo"
 html_static_path = ["_static"]
 html_logo = "_static/imgs/logo.png"
 html_favicon = "_static/imgs/logo.ico"
@@ -200,8 +202,6 @@ intersphinx_mapping = {
   "numpy": ("https://numpy.org/doc/stable", None),
   "torch": ("https://pytorch.org/docs/stable", None),
 }
-
-html_theme = "sphinx_book_theme"
 
 
 nbsphinx_prolog = """

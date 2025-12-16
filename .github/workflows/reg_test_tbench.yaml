@@ -52,18 +52,18 @@ jobs:
       #       exit 1
       #     fi
 
-      # - name: Single-eval-oracle
-      #   run: |
-      #     git config --global user.name "github_ci"
-      #     git config --global user.email "github_ci@reptile.com"
-      #     (autopilot evaluate --benchmark terminal_bench --task hello-world --interaction oracle --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
-      #     # check if "Succeed" is in the output
-      #     if grep -q "Succeed" /tmp/test.out; then
-      #       echo "Succeed"
-      #     else
-      #       echo "Failed"
-      #       exit 1
-      #     fi
+      - name: Single-eval-oracle
+        run: |
+          git config --global user.name "github_ci"
+          git config --global user.email "github_ci@reptile.com"
+          (autopilot evaluate --benchmark terminal_bench --task hello-world --interaction oracle --no-log-to-github --no-log-to-mongodb) | tee /tmp/test.out
+          # check if "Succeed" is in the output
+          if grep -q "Succeed" /tmp/test.out; then
+            echo "Succeed"
+          else
+            echo "Failed"
+            exit 1
+          fi
 
       # - name: Batch-eval
       #   run: |

@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MMLU-Pro Task Design &#8212; Terminal-Agent</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'task_ref/task_design_mmlu_pro';</script>
+    <link rel="canonical" href="/Terminal-Agent-Docs/task_ref/task_design_mmlu_pro.html" />
+    <link rel="icon" href="../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SWE-Bench Task Design" href="task_design_swe.html" />
+    <link rel="prev" title="LoCoMo Task Design" href="task_design_locomo.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Dec 16, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Terminal-Agent - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Terminal-Agent - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/cli_design.html">Autopilot CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/run_sandbox.html">Run With Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/tools.html">Tool Use for Agents</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/user_interface.html">Web Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/annotation.html">Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/llm_service.html">Choose LLM Service</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Task Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="task_overview.html">Task Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_locomo.html">LoCoMo Task Design</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">MMLU-Pro Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_swe.html">SWE-Bench Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_terminal_bench.html">Terminal-Bench Task Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow_design.html">Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/hooks/index.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/nodes/index.html">Nodes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Guideline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/dev_for_autopilot.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/code_standards.html">Code Standards</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/blob/main/task_ref/task_design_mmlu_pro.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/edit/main/task_ref/task_design_mmlu_pro.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/issues/new?title=Issue%20on%20page%20%2Ftask_ref/task_design_mmlu_pro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/task_ref/task_design_mmlu_pro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MMLU-Pro Task Design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-generation">Task Generation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-script-usage">Tool Script Usage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-format">Task Format</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-structure">Task Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation-configuration">Task Implementation &amp; Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-environment">Docker Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-format">Prompt Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-success-criteria">Evaluation Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mmlu-pro-task-design">
+<h1>MMLU-Pro Task Design<a class="headerlink" href="#mmlu-pro-task-design" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>MMLU-Pro evaluates language understanding across 14 professional domains with 12,000+ multiple-choice questions. Each question has multiple answer choices.</p>
+</section>
+<section id="task-generation">
+<h2>Task Generation<a class="headerlink" href="#task-generation" title="Link to this heading">#</a></h2>
+<p>MMLU-Pro tasks must be generated from the HuggingFace dataset before they can be used for evaluation. We provide a tool script to download and convert tasks, which you could refer at <code class="docutils literal notranslate"><span class="pre">tools/mmlu_pro/README.md</span></code>.</p>
+<section id="tool-script-usage">
+<h3>Tool Script Usage<a class="headerlink" href="#tool-script-usage" title="Link to this heading">#</a></h3>
+<p>Run the task conversion script to download and convert the MMLU-Pro dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tools/mmlu_pro/build_mmlu_pro_task.py
+</pre></div>
+</div>
+<p>The script will</p>
+<ol class="arabic simple">
+<li><p>Downloads the MMLU-Pro dataset from HuggingFace (<code class="docutils literal notranslate"><span class="pre">TIGER-Lab/MMLU-Pro</span></code>)</p></li>
+<li><p>Loads both test and validation splits</p></li>
+<li><p>Creates a directory for <strong>each</strong> task at <code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/tasks/{index}/</span></code></p></li>
+<li><p>Saves the instance data as <code class="docutils literal notranslate"><span class="pre">instance.json</span></code> in each task directory</p></li>
+</ol>
+<p>The script processes the entire test set and the progress is displayed via a progress bar.</p>
+<p>Example logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>data/test-00000-of-00001.parquet:<span class="w"> </span><span class="m">100</span>%<span class="p">|</span>███████████████████████████████████████████<span class="p">|</span><span class="w"> </span><span class="m">4</span>.15M/4.15M<span class="w"> </span><span class="o">[</span><span class="m">00</span>:02&lt;<span class="m">00</span>:00,<span class="w"> </span><span class="m">1</span>.55MB/s<span class="o">]</span>
+data/validation-00000-of-00001.parquet:<span class="w"> </span><span class="m">100</span>%<span class="p">|</span>█████████████████████████████████████<span class="p">|</span><span class="w"> </span><span class="m">42</span>.9k/42.9k<span class="w"> </span><span class="o">[</span><span class="m">00</span>:01&lt;<span class="m">00</span>:00,<span class="w"> </span><span class="m">40</span>.9kB/s<span class="o">]</span>
+Generating<span class="w"> </span><span class="nb">test</span><span class="w"> </span>split:<span class="w"> </span><span class="m">100</span>%<span class="p">|</span>███████████████████████████████████████████<span class="p">|</span><span class="w"> </span><span class="m">12032</span>/12032<span class="w"> </span><span class="o">[</span><span class="m">00</span>:00&lt;<span class="m">00</span>:00,<span class="w"> </span><span class="m">364824</span>.92<span class="w"> </span>examples/s<span class="o">]</span>
+Generating<span class="w"> </span>validation<span class="w"> </span>split:<span class="w"> </span><span class="m">100</span>%<span class="p">|</span>████████████████████████████████████████████<span class="p">|</span><span class="w"> </span><span class="m">70</span>/70<span class="w"> </span><span class="o">[</span><span class="m">00</span>:00&lt;<span class="m">00</span>:00,<span class="w"> </span><span class="m">59122</span>.29<span class="w"> </span>examples/s<span class="o">]</span>
+<span class="m">100</span>%<span class="p">|</span>███████████████████████████████████████████████████████████████████<span class="p">|</span><span class="w"> </span><span class="m">12032</span>/12032<span class="w"> </span><span class="o">[</span><span class="m">00</span>:01&lt;<span class="m">00</span>:00,<span class="w"> </span><span class="m">7786</span>.72it/s<span class="o">]</span>
+</pre></div>
+</div>
+<p>Once all the tests processed, you will see the output tasks in <code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/tasks/</span></code>.</p>
+</section>
+</section>
+<section id="task-format">
+<h2>Task Format<a class="headerlink" href="#task-format" title="Link to this heading">#</a></h2>
+<p>Each MMLU-Pro task represents a single multiple-choice question. Tasks are stored locally in the repository under <code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/tasks/</span></code>.</p>
+<section id="task-structure">
+<h3>Task Structure<a class="headerlink" href="#task-structure" title="Link to this heading">#</a></h3>
+<p><strong>Task Name</strong>: Integer index as string (e.g., “0”, “1”, “42”)</p>
+<p><strong>Directory Layout</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>external/MMLU-Pro/tasks/
+├── 0/instance.json
+├── 1/instance.json
+├── 2/instance.json
+...
+└── N/instance.json  # Where N is the total number of existing test instances
+</pre></div>
+</div>
+</section>
+<section id="data-format">
+<h3>Data Format<a class="headerlink" href="#data-format" title="Link to this heading">#</a></h3>
+<p>Inside <code class="docutils literal notranslate"><span class="pre">instance.json</span></code>, each conversation is formatted as:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;question_id&quot;</span><span class="p">:</span><span class="mi">70</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="s2">&quot;Typical advertising regulatory bodies suggest, for example that adverts must not: encourage _________, cause unnecessary ________ or _____, and must not cause _______ offence.&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;options&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="s2">&quot;Safe practices, Fear, Jealousy, Trivial&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Unsafe practices, Distress, Joy, Trivial&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Safe practices, Wants, Jealousy, Trivial&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Safe practices, Distress, Fear, Trivial&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Unsafe practices, Wants, Jealousy, Serious&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Safe practices, Distress, Jealousy, Serious&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Safe practices, Wants, Fear, Serious&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Unsafe practices, Wants, Fear, Trivial&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;Unsafe practices, Distress, Fear, Serious&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;answer&quot;</span><span class="p">:</span><span class="s2">&quot;I&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;answer_index&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;cot_content&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;business&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;src&quot;</span><span class="p">:</span><span class="s2">&quot;ori_mmlu-business_ethics&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The task data is loaded from the local <code class="docutils literal notranslate"><span class="pre">instance.json</span></code> file at <code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/tasks/{task_name}/instance.json</span></code>. Note the <code class="docutils literal notranslate"><span class="pre">question_id</span></code> is not the same as the task name (task directory).</p>
+</section>
+</section>
+<section id="task-implementation-configuration">
+<h2>Task Implementation &amp; Configuration<a class="headerlink" href="#task-implementation-configuration" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Task type</strong>: <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/mmlu_pro.py</span></code></p></li>
+<li><p><strong>Dataset Loading</strong>: Loaded from local JSON files in <code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/tasks/{task_name}/instance.json</span></code></p></li>
+<li><p><strong>Prompt Template</strong>: <code class="docutils literal notranslate"><span class="pre">autopilot/prompts/mmlu_pro_prompt.py</span></code></p></li>
+</ul>
+<section id="docker-environment">
+<h3>Docker Environment<a class="headerlink" href="#docker-environment" title="Link to this heading">#</a></h3>
+<p><strong>Docker Files Location</strong>: <code class="docutils literal notranslate"><span class="pre">tools/mmlu_pro/</span></code></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build_image/Dockerfile  # Base image (`mmlupro.common:latest`)
+Dockerfile  # Task-specific image extending base
+docker-compose.yaml  # Container orchestration (patched at runtime to use bridge network)
+test_script.sh  # Evaluation script that reads `/testbed/answer.txt`
+</pre></div>
+</div>
+<p><strong>Container Details</strong>:</p>
+<ul class="simple">
+<li><p>Shared Image: All tasks use the same minimal environment built from the same Dockerfile (Check <code class="docutils literal notranslate"><span class="pre">tools/mmlu_pro/Dockerfile</span></code>)</p></li>
+<li><p>Container Name Format: <code class="docutils literal notranslate"><span class="pre">mmlu_pro_{session_name}</span></code>, where <code class="docutils literal notranslate"><span class="pre">session_name</span></code> is composed by <code class="docutils literal notranslate"><span class="pre">{task_name}-{timestamp}-{session-specific-random-hex-string}</span></code></p></li>
+<li><p>Working Directory: <code class="docutils literal notranslate"><span class="pre">/testbed/</span></code> (where agent writes answer)</p></li>
+<li><p>Eval Script Path: Copied to <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/shared_scripts/test_script.sh</span></code> in container</p></li>
+<li><p>Task Directory: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/{task_name}/</span></code> in container</p></li>
+<li><p>Image Build: Automatically built on first use via <code class="docutils literal notranslate"><span class="pre">launch_container()</span></code> method</p></li>
+</ul>
+</section>
+<section id="prompt-format">
+<h3>Prompt Format<a class="headerlink" href="#prompt-format" title="Link to this heading">#</a></h3>
+<p>Questions are formatted with the prompt template defined in <code class="docutils literal notranslate"><span class="pre">autopilot/prompts/mmlu_pro_prompt.py</span></code>.</p>
+<p>When constructing input prompt for a task, the answer choices will be formatted as options like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span> <span class="n">Option</span> <span class="mi">1</span>
+<span class="n">B</span><span class="o">.</span> <span class="n">Option</span> <span class="mi">2</span>
+<span class="n">C</span><span class="o">.</span> <span class="n">Option</span> <span class="mi">3</span>
+<span class="o">...</span>
+<span class="n">J</span><span class="o">.</span> <span class="n">Option</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+<section id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">#</a></h3>
+<p>The following environment variables are configured for each task container:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TASK_BUILD_CONTEXT_DIR</span></code>: Points to <code class="docutils literal notranslate"><span class="pre">tools/mmlu_pro/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TASK_DOCKER_CLIENT_IMAGE_NAME</span></code>: Set to <code class="docutils literal notranslate"><span class="pre">&quot;mmlu_pro&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TASK_DOCKER_NAME_PREFIX</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TEST_DIR</span></code>: Path to test files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TASK_LOGS_PATH</span></code> / <code class="docutils literal notranslate"><span class="pre">MMLU_PRO_CONTAINER_LOGS_PATH</span></code>: <code class="docutils literal notranslate"><span class="pre">/logs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MMLU_PRO_TASK_DOCKER_CLIENT_CONTAINER_NAME</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEST_DIR</span></code>: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/{task_name}/tests</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TASK_DIR</span></code>: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/{task_name}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPOSE_PROJECT_NAME</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPOSE_DOCKER_CLI_BUILD</span></code> / <code class="docutils literal notranslate"><span class="pre">DOCKER_BUILDKIT</span></code>: Docker build settings</p></li>
+</ul>
+<!-- prevent hardcoding MMLU_PRO_TASK_LOGS_PATH, MMLU_PRO_CONTAINER_LOGS_PATH -->
+</section>
+<section id="evaluation-success-criteria">
+<h3>Evaluation Success Criteria<a class="headerlink" href="#evaluation-success-criteria" title="Link to this heading">#</a></h3>
+<p>The success criteria is string-matched evaluation (<code class="docutils literal notranslate"><span class="pre">string-match</span></code>):</p>
+<ol class="arabic simple">
+<li><p>Agent writes single letter to <code class="docutils literal notranslate"><span class="pre">/testbed/answer.txt</span></code></p></li>
+<li><p>Evaluation script (<code class="docutils literal notranslate"><span class="pre">test_script.sh</span></code>) reads file content using <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/testbed/answer.txt</span></code></p></li>
+<li><p>Compare if the answer choice selected is the same as corresponding ground truth</p></li>
+</ol>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Official Repository</strong>: <a class="reference external" href="https://github.com/TIGER-AI-Lab/MMLU-Pro">github.com/TIGER-AI-Lab/MMLU-Pro</a></p></li>
+<li><p><strong>Dataset</strong>: <a class="reference external" href="https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro">huggingface.co/datasets/TIGER-Lab/MMLU-Pro</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="task_design_locomo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">LoCoMo Task Design</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="task_design_swe.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SWE-Bench Task Design</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-generation">Task Generation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-script-usage">Tool Script Usage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-format">Task Format</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-structure">Task Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation-configuration">Task Implementation &amp; Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-environment">Docker Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-format">Prompt Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-success-criteria">Evaluation Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SEA AI Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025-2025, SEA AI Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Dec 16, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

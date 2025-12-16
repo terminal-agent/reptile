@@ -1,0 +1,752 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LoCoMo Task Design &#8212; Terminal-Agent</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'task_ref/task_design_locomo';</script>
+    <link rel="canonical" href="/Terminal-Agent-Docs/task_ref/task_design_locomo.html" />
+    <link rel="icon" href="../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MMLU-Pro Task Design" href="task_design_mmlu_pro.html" />
+    <link rel="prev" title="Task Overview" href="task_overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Dec 16, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Terminal-Agent - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Terminal-Agent - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/cli_design.html">Autopilot CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/run_sandbox.html">Run With Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/tools.html">Tool Use for Agents</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/user_interface.html">Web Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/annotation.html">Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/llm_service.html">Choose LLM Service</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Task Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="task_overview.html">Task Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LoCoMo Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_mmlu_pro.html">MMLU-Pro Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_swe.html">SWE-Bench Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_terminal_bench.html">Terminal-Bench Task Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow_design.html">Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/hooks/index.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/nodes/index.html">Nodes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Guideline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/dev_for_autopilot.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/code_standards.html">Code Standards</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/blob/main/task_ref/task_design_locomo.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/edit/main/task_ref/task_design_locomo.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/issues/new?title=Issue%20on%20page%20%2Ftask_ref/task_design_locomo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/task_ref/task_design_locomo.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LoCoMo Task Design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-format">Task Format</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-structure">Task Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation-configuration">Task Implementation &amp; Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-environment">Docker Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-format">Prompt Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-success-criteria">Evaluation Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="locomo-task-design">
+<h1>LoCoMo Task Design<a class="headerlink" href="#locomo-task-design" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>LoCoMo (Long Conversation Memory) evaluates long-term conversational memory across extended multi-session dialogues. Tasks test cross-session information retrieval and temporal reasoning.</p>
+</section>
+<section id="data-loading">
+<h2>Data Loading<a class="headerlink" href="#data-loading" title="Link to this heading">#</a></h2>
+<p>LoCoMo tasks are loaded from a pre-existing local dataset file. No separate generation step is required.</p>
+<p><strong>Dataset Location</strong>: <code class="docutils literal notranslate"><span class="pre">external/locomo/data/locomo10.json</span></code></p>
+<p>The dataset is loaded automatically when initializing any LoCoMo task instance via <code class="docutils literal notranslate"><span class="pre">LocomoTask.load_locomo()</span></code>.</p>
+</section>
+<section id="task-format">
+<h2>Task Format<a class="headerlink" href="#task-format" title="Link to this heading">#</a></h2>
+<section id="task-structure">
+<h3>Task Structure<a class="headerlink" href="#task-structure" title="Link to this heading">#</a></h3>
+<p><strong>Task Name Format</strong>: <code class="docutils literal notranslate"><span class="pre">&lt;conversation_id&gt;_&lt;question_id&gt;</span></code></p>
+<ul class="simple">
+<li><p>Both IDs are zero-based numeric indices</p></li>
+<li><p>Examples: <code class="docutils literal notranslate"><span class="pre">0_0</span></code>, <code class="docutils literal notranslate"><span class="pre">0_1</span></code>, <code class="docutils literal notranslate"><span class="pre">5_3</span></code>, <code class="docutils literal notranslate"><span class="pre">9_12</span></code></p></li>
+<li><p>Format: Conversation index (0-9) + underscore + question index within that conversation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LocomoTask.task_names()</span></code> is used for task name formation</p></li>
+</ul>
+</section>
+<section id="data-format">
+<h3>Data Format<a class="headerlink" href="#data-format" title="Link to this heading">#</a></h3>
+<p>The dataset is a JSON array where each element represents one multi-tern conversation with multiple QA pairs. For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;sample_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;conv-26&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;qa&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="s2">&quot;When did Caroline go to the LGBTQ support group?&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;answer&quot;</span><span class="p">:</span><span class="s2">&quot;7 May 2023&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;evidence&quot;</span><span class="p">:[</span>
+<span class="w">          </span><span class="s2">&quot;D1:3&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="mi">2</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;conversation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;speaker_a&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Caroline&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;speaker_b&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Melanie&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;session_1_date_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1:56 pm on 8 May, 2023&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;session_1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;speaker&quot;</span><span class="p">:</span><span class="s2">&quot;Caroline&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;dia_id&quot;</span><span class="p">:</span><span class="s2">&quot;D1:1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;Hey Mel! Good to see you! How have you been?&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;speaker&quot;</span><span class="p">:</span><span class="s2">&quot;Melanie&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;dia_id&quot;</span><span class="p">:</span><span class="s2">&quot;D1:2&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;Hey Caroline! Good to see you! I&#39;m swamped with the kids &amp; work. What&#39;s up with you? Anything new?&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;session_2_date_time&quot;</span><span class="p">:</span><span class="s2">&quot;1:14 pm on 25 May, 2023&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;session_2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;speaker&quot;</span><span class="p">:</span><span class="s2">&quot;Melanie&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;dia_id&quot;</span><span class="p">:</span><span class="s2">&quot;D2:1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;Hey Caroline, since we last chatted, I&#39;ve had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;observation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;session_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">conversation</span></code> and <code class="docutils literal notranslate"><span class="pre">qa</span></code> for a conversation are two key fields we focus on.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">conversation</span></code></strong>: Contains list of sessions (<code class="docutils literal notranslate"><span class="pre">session_&lt;num&gt;</span></code>) and their timestamps (<code class="docutils literal notranslate"><span class="pre">session_&lt;num&gt;_date_time</span></code>). The numbers <code class="docutils literal notranslate"><span class="pre">&lt;num&gt;</span></code> represent the chronological order of the sessions.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker_a</span></code>, <code class="docutils literal notranslate"><span class="pre">speaker_b</span></code>: Names of the two conversation participants</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">session_N</span></code>: Array of chat messages for session N (N starts from 1)</p>
+<ul>
+<li><p>Each turn contains:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">speaker</span></code>: Name of the speaker</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dia_id</span></code>: Dialog ID (format: “D<session>:<turn>”, e.g., “D1:3”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code>: Content of the dialog</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">session_N_date_time</span></code>: Timestamp string (format: “HH:MM am/pm on DD Month, YYYY”)</p></li>
+</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">qa</span></code></strong>: Array of question-answer pairs about this conversation</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">question</span></code>: The question to answer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">answer</span></code>: Ground truth answer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evidence</span></code>: References to relevant parts (e.g., [“D1:3”] refers to session 1, turn 3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">category</span></code>: Question category type</p></li>
+</ul>
+</section>
+</section>
+<section id="task-implementation-configuration">
+<h2>Task Implementation &amp; Configuration<a class="headerlink" href="#task-implementation-configuration" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Task type</strong>: <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/locomo.py</span></code></p></li>
+<li><p><strong>Data Loading</strong>: <code class="docutils literal notranslate"><span class="pre">load_locomo()</span></code> reads <code class="docutils literal notranslate"><span class="pre">locomo10.json</span></code> at class initialization</p></li>
+<li><p><strong>Prompt Template</strong>: <code class="docutils literal notranslate"><span class="pre">autopilot/prompts.py</span></code></p></li>
+</ul>
+<section id="docker-environment">
+<h3>Docker Environment<a class="headerlink" href="#docker-environment" title="Link to this heading">#</a></h3>
+<p><strong>Docker Files Location</strong>: <code class="docutils literal notranslate"><span class="pre">tools/locomo/</span></code></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>build_image/Dockerfile
+Dockerfile  # Task-specific image extending base
+docker-compose.yaml  # Container orchestration (patched at runtime to use bridge network)
+test_script.sh  # Evaluation script
+</pre></div>
+</div>
+<p><strong>Container Details</strong>:</p>
+<ul class="simple">
+<li><p>Shared Image: All tasks use the same minimal environment built from the same Dockerfile (Check <code class="docutils literal notranslate"><span class="pre">tools/locomo/Dockerfile</span></code>)</p></li>
+<li><p>Container Name Format: <code class="docutils literal notranslate"><span class="pre">locomo_{session_name}</span></code>, where <code class="docutils literal notranslate"><span class="pre">session_name</span></code> is composed by <code class="docutils literal notranslate"><span class="pre">{task_name}-{timestamp}-{session-specific-random-hex-string}</span></code></p></li>
+<li><p>Working Directory: <code class="docutils literal notranslate"><span class="pre">/testbed/</span></code> (where conversation.txt is written)</p></li>
+<li><p>Eval Script Path: Copied to <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/shared_scripts/test_script.sh</span></code> in container</p></li>
+<li><p>LLM Judge Path: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/shared_scripts/llm_judge.py</span></code></p></li>
+<li><p>Image Build: Automatically built on first use via <code class="docutils literal notranslate"><span class="pre">launch_container()</span></code> method</p></li>
+</ul>
+<p><strong>File Locations in Container</strong>:</p>
+<ul class="simple">
+<li><p>Processed conversation: <code class="docutils literal notranslate"><span class="pre">/testbed/conversation.txt</span></code> (written by <code class="docutils literal notranslate"><span class="pre">LocomoTask.write_conversation()</span></code>)</p></li>
+<li><p>Agent’s answer: <code class="docutils literal notranslate"><span class="pre">/testbed/answer.txt</span></code></p></li>
+<li><p>Gold answer: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/answer.txt</span></code></p></li>
+</ul>
+</section>
+<section id="prompt-format">
+<h3>Prompt Format<a class="headerlink" href="#prompt-format" title="Link to this heading">#</a></h3>
+<p>The conversation is processed chronologically by session timestamp using <code class="docutils literal notranslate"><span class="pre">LocomoTask.process_conversation</span></code>, then formatted with the prompt template in <code class="docutils literal notranslate"><span class="pre">autopilot/prompts/locomo_prompt.py</span></code></p>
+<p><strong>Processing Steps</strong>:</p>
+<ol class="arabic simple">
+<li><p>Extract all sessions from conversation data</p></li>
+<li><p>Sort sessions by timestamp (converted to sortable format)</p></li>
+<li><p>Format each session with timestamp header</p></li>
+<li><p>Messages shown as <code class="docutils literal notranslate"><span class="pre">{speaker_name}:</span> <span class="pre">{text}</span></code></p></li>
+<li><p>Sessions separated by double newlines</p></li>
+</ol>
+</section>
+<section id="environment-variables">
+<h3>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">#</a></h3>
+<p>The following environment variables are configured for each task container:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TASK_BUILD_CONTEXT_DIR</span></code>: Points to <code class="docutils literal notranslate"><span class="pre">tools/locomo/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TASK_DOCKER_CLIENT_IMAGE_NAME</span></code>: Set to <code class="docutils literal notranslate"><span class="pre">&quot;locomo&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TASK_DOCKER_NAME_PREFIX</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TEST_DIR</span></code>: Path to test files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TASK_LOGS_PATH</span></code> / <code class="docutils literal notranslate"><span class="pre">LOCOMO_CONTAINER_LOGS_PATH</span></code>: <code class="docutils literal notranslate"><span class="pre">/logs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LOCOMO_TASK_DOCKER_CLIENT_CONTAINER_NAME</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEST_DIR</span></code>: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/{task_name}/tests</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TASK_DIR</span></code>: <code class="docutils literal notranslate"><span class="pre">/tmp/tasks/{task_name}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPOSE_PROJECT_NAME</span></code>: Container name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPOSE_DOCKER_CLI_BUILD</span></code> / <code class="docutils literal notranslate"><span class="pre">DOCKER_BUILDKIT</span></code>: Docker build settings</p></li>
+</ul>
+<!-- prevent hardcoding LOCOMO_TASK_LOGS_PATH, LOCOMO_CONTAINER_LOGS_PATH -->
+</section>
+<section id="evaluation-success-criteria">
+<h3>Evaluation Success Criteria<a class="headerlink" href="#evaluation-success-criteria" title="Link to this heading">#</a></h3>
+<p>The success criteria is judged by LLM (<code class="docutils literal notranslate"><span class="pre">llm-judge</span></code>) with the following flow:</p>
+<ol class="arabic simple">
+<li><p>Agent receives full conversation history + question via LOCOMO_PROMPT</p></li>
+<li><p>Agent generates answer and writes it to <code class="docutils literal notranslate"><span class="pre">/testbed/answer.txt</span></code></p></li>
+<li><p>Evaluation script (<code class="docutils literal notranslate"><span class="pre">test_script.sh</span></code>) invokes LLM judge to compare answers</p></li>
+<li><p>LLM judge compares agent answer to ground truth answer and provide a conclusion (e.g., CORRECT or WRONG)</p></li>
+</ol>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Official Repository</strong>: <a class="reference external" href="https://github.com/snap-research/locomo">github.com/snap-research/locomo</a></p></li>
+<li><p><strong>Project Page</strong>: <a class="reference external" href="https://snap-research.github.io/locomo/">snap-research.github.io/locomo</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="task_overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Task Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="task_design_mmlu_pro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MMLU-Pro Task Design</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-format">Task Format</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-structure">Task Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-format">Data Format</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation-configuration">Task Implementation &amp; Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-environment">Docker Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-format">Prompt Format</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">Environment Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-success-criteria">Evaluation Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SEA AI Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025-2025, SEA AI Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Dec 16, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

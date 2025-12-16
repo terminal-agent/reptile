@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contribution Guide &#8212; Terminal-Agent</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dev_guide/dev_for_autopilot';</script>
+    <link rel="canonical" href="/Terminal-Agent-Docs/dev_guide/dev_for_autopilot.html" />
+    <link rel="icon" href="../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Code Standards" href="code_standards.html" />
+    <link rel="prev" title="Editor Node" href="../dev_ref/nodes/editor_node.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Dec 16, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Terminal-Agent - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Terminal-Agent - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/cli_design.html">Autopilot CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/run_sandbox.html">Run With Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/tools.html">Tool Use for Agents</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/user_interface.html">Web Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/annotation.html">Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/llm_service.html">Choose LLM Service</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Task Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../task_ref/task_overview.html">Task Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../task_ref/task_design_locomo.html">LoCoMo Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../task_ref/task_design_mmlu_pro.html">MMLU-Pro Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../task_ref/task_design_swe.html">SWE-Bench Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../task_ref/task_design_terminal_bench.html">Terminal-Bench Task Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow_design.html">Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/hooks/index.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/nodes/index.html">Nodes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Guideline</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_standards.html">Code Standards</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/blob/main/dev_guide/dev_for_autopilot.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/edit/main/dev_guide/dev_for_autopilot.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/issues/new?title=Issue%20on%20page%20%2Fdev_guide/dev_for_autopilot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/dev_guide/dev_for_autopilot.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Contribution Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">Environment Setup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-steps">Setup Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-pipeline">Development Pipeline</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synchronize-updates">Synchronize Updates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-branch">Create a Branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-changes">Test Your Changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-push">Commit and Push</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-pull-request">Create a Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-standards">Code Standards</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mocking-in-tests">Mocking in Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-unstuck">Getting Unstuck</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-issues">Reporting Issues</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="contribution-guide">
+<h1>Contribution Guide<a class="headerlink" href="#contribution-guide" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>This document outlines the essential development workflow for the <code class="docutils literal notranslate"><span class="pre">autopilot</span></code> project. If you are interested in contributing to the project, please follow the steps below.</p>
+<p><strong>Table of Contents:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#environment-setup"><span class="std std-ref">Development Environment Setup</span></a></p></li>
+<li><p><a class="reference internal" href="#development-pipeline"><span class="std std-ref">Development Pipeline</span></a></p></li>
+<li><p><a class="reference internal" href="#code-standards"><span class="std std-ref">Code Standards</span></a></p></li>
+<li><p><a class="reference internal" href="#testing"><span class="std std-ref">Testing</span></a></p></li>
+<li><p><a class="reference internal" href="#getting-help"><span class="std std-ref">Getting Help</span></a></p></li>
+</ul>
+</section>
+<section id="environment-setup">
+<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Link to this heading">#</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Python 3.11 or higher</p></li>
+<li><p>Git with LFS support (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">install</span></code>)</p></li>
+<li><p><a class="reference external" href="https://github.com/astral-sh/uv">uv</a> or pip</p></li>
+</ul>
+</section>
+<section id="setup-steps">
+<h3>Setup Steps<a class="headerlink" href="#setup-steps" title="Link to this heading">#</a></h3>
+<p><strong>1. Configure the repository</strong></p>
+<p>First visit our official repository <a class="reference external" href="https://github.com/terminal-agent/reptile">Terminal-Agents</a> and fork it with your own GitHub account (Check the <code class="docutils literal notranslate"><span class="pre">fork</span></code> button in the upper-right corner).</p>
+<p>Then you can clone your forked repository into your local. Note that <code class="docutils literal notranslate"><span class="pre">--recurse-submodules</span></code> automatically initializes and updates all its submodules.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/<span class="o">{</span>YOUR-GITHUB-USERNAME<span class="o">}</span>/Terminal-Agents.git<span class="w"> </span>--recurse-submodules
+<span class="nb">cd</span><span class="w"> </span>Terminal-Agents
+</pre></div>
+</div>
+<p>To set the official repository as your upstream:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Terminal-Agents
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/terminal-agent/reptile.git
+
+<span class="c1"># Check if the remote has been set</span>
+git<span class="w"> </span>remote<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>After setting up the remotes successfully, you will see two remote repositories have been set:</p>
+<p><code class="docutils literal notranslate"><span class="pre">origin</span> <span class="pre">https://github.com/{YOUR-GITHUB-USERNAME}/Terminal-Agents.git</span></code>
+This is the default remote pointing to your forked repository. You have write access and can push your changes here.</p>
+<p><code class="docutils literal notranslate"><span class="pre">upstream</span> <span class="pre">https://github.com/terminal-agent/reptile.git</span></code>
+The upstream points to the official repository, and is used to sync the latest updates from it.</p>
+<p><strong>2. Create a virtual environment</strong></p>
+<p>We recommend using a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> directory inside the repo:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using uv (recommended)</span>
+uv<span class="w"> </span>venv<span class="w"> </span>.venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.11
+
+<span class="c1"># Or using standard venv</span>
+python3.11<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</pre></div>
+</div>
+<p>And then activate the virtual environment:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+
+<span class="c1"># Or on Windows</span>
+.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
+<p><strong>3. Install the repository in development mode</strong></p>
+<p>The following installation command will install both <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">requirements-dev.txt</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>dev<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Note for Zsh users:</strong> If you encounter <code class="docutils literal notranslate"><span class="pre">zsh:</span> <span class="pre">no</span> <span class="pre">matches</span> <span class="pre">found:</span> <span class="pre">.[dev]</span></code>, use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;.[dev]&#39;</span>
+</pre></div>
+</div>
+<p><strong>4. Install Pre-commit Hooks</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+pre-commit<span class="w"> </span>install
+</pre></div>
+</div>
+<p>This will enable pre-commit hooks to run automatically before you commit. Some existing pre-commit hooks are:</p>
+<ol class="arabic simple">
+<li><p>Code formatting: <code class="docutils literal notranslate"><span class="pre">ruff</span> <span class="pre">format</span> <span class="pre">.</span></code> passes</p></li>
+<li><p>Linting: <code class="docutils literal notranslate"><span class="pre">ruff</span> <span class="pre">check</span> <span class="pre">.</span></code> passes</p></li>
+<li><p>Tests pass: <code class="docutils literal notranslate"><span class="pre">pytest</span></code> passes</p></li>
+<li><p>Pre-commit hooks: <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--all-files</span></code> passes</p></li>
+<li><p>Documentation: All public APIs have docstrings</p></li>
+<li><p>Type annotations: All functions have proper type hints</p></li>
+</ol>
+<p>You can manually run pre-commit hooks at any time as well:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>--files<span class="w"> </span>module_0.py<span class="w"> </span>module_1.py
+</pre></div>
+</div>
+</section>
+<section id="verify-installation">
+<h3>Verify Installation<a class="headerlink" href="#verify-installation" title="Link to this heading">#</a></h3>
+<p>After installation, you may check autopilot is successfully installed by</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>autopilot<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+</section>
+<section id="development-pipeline">
+<h2>Development Pipeline<a class="headerlink" href="#development-pipeline" title="Link to this heading">#</a></h2>
+<p>You can follow the following pipeline to develop your feature:</p>
+<section id="synchronize-updates">
+<h3>Synchronize Updates<a class="headerlink" href="#synchronize-updates" title="Link to this heading">#</a></h3>
+<p>Typical workflow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1) Fetch latest changes from upstream</span>
+git<span class="w"> </span>fetch<span class="w"> </span>upstream
+
+<span class="c1"># 2) Rebase frequently to merge updates into your local branch, for example</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/main
+
+<span class="c1"># 3) Make your changes and commit locally</span>
+...
+
+<span class="c1"># 4) Push to your forked repository</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># 5) Create a Pull Request from your fork to the official repository</span>
+...
+</pre></div>
+</div>
+<p>If conflicts occur, resolve the conflict and then continue the rebase</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>rebase<span class="w"> </span>--continue
+</pre></div>
+</div>
+</section>
+<section id="create-a-branch">
+<h3>Create a Branch<a class="headerlink" href="#create-a-branch" title="Link to this heading">#</a></h3>
+<p>Use descriptive branch names that follow this pattern:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For documentation</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>docs/what-you-are-documenting
+
+<span class="c1"># For new features</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+
+<span class="c1"># For bug fixes</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/bug-description
+</pre></div>
+</div>
+<p>Example types:</p>
+<ul class="simple">
+<li><p><strong>feature</strong>: A new feature</p></li>
+<li><p><strong>fix</strong>: A bug fix</p></li>
+<li><p><strong>test</strong>: Adding or updating tests</p></li>
+<li><p><strong>refactor</strong>: Code refactoring without changing functionality</p></li>
+<li><p><strong>docs</strong>: Documentation only changes</p></li>
+<li><p><strong>chore</strong>: Maintenance tasks, dependency updates, etc.</p></li>
+</ul>
+</section>
+<section id="test-your-changes">
+<h3>Test Your Changes<a class="headerlink" href="#test-your-changes" title="Link to this heading">#</a></h3>
+<p>Build and run tests during development:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run specific test file with displaying prints and loggings</span>
+pytest<span class="w"> </span>-s<span class="w"> </span>tests/test_tools/test_calculator.py
+</pre></div>
+</div>
+</section>
+<section id="commit-and-push">
+<h3>Commit and Push<a class="headerlink" href="#commit-and-push" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add your feature&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature-name
+</pre></div>
+</div>
+<p>Pre-commit hooks will run automatically when you commit. If you want to run the pre-commit hooks manually, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit<span class="w"> </span>run<span class="w"> </span>--files<span class="w"> </span>module_0.py<span class="w"> </span>module_1.py
+</pre></div>
+</div>
+</section>
+<section id="create-a-pull-request">
+<h3>Create a Pull Request<a class="headerlink" href="#create-a-pull-request" title="Link to this heading">#</a></h3>
+<p>Before you create a pull request, you need to write a detailed PR description. The description should explain the motivation, problem, changes, or outcomes, etc.</p>
+<p>The PR description template can be found at <code class="docutils literal notranslate"><span class="pre">.github/pull_request_template.md</span></code>.</p>
+</section>
+</section>
+<section id="code-standards">
+<h2>Code Standards<a class="headerlink" href="#code-standards" title="Link to this heading">#</a></h2>
+<p>See <a class="reference internal" href="code_standards.html"><span class="std std-doc">Code Standards</span></a> for detailed documentation and type annotation requirements.</p>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h2>
+<section id="writing-tests">
+<h3>Writing Tests<a class="headerlink" href="#writing-tests" title="Link to this heading">#</a></h3>
+<p>All code changes must include tests. We use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> and <code class="docutils literal notranslate"><span class="pre">pytest-mock</span></code> at this moment. If the tests you’re adding require, you may want to add extra dependencies in <code class="docutils literal notranslate"><span class="pre">requirements-dev.txt</span></code> and re-install the repository.</p>
+<p>Tests should be placed in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code> directory, ideally mirroring the structure of the <code class="docutils literal notranslate"><span class="pre">autopilot/</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">autopilot</span><span class="o">/</span>
+  <span class="n">tools</span><span class="o">/</span>
+  <span class="n">workflow</span><span class="o">/</span>
+<span class="n">tests</span><span class="o">/</span>
+  <span class="n">test_tools</span><span class="o">/</span>
+  <span class="n">test_workflow</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="mocking-in-tests">
+<h3>Mocking in Tests<a class="headerlink" href="#mocking-in-tests" title="Link to this heading">#</a></h3>
+<p>You might want to use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixtures and mocking when needed. Refer to the following example of the basic usage (The <code class="docutils literal notranslate"><span class="pre">pytest-mock</span></code> plugin is included as part of the repository’s development installation).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mock_api</span><span class="p">(</span><span class="n">mocker</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reusable mocked API client created via pytest-mock.&quot;&quot;&quot;</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">Mock</span><span class="p">()</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s2">&quot;test response&quot;</span>
+    <span class="k">return</span> <span class="n">api</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_with_fixture_and_mocker</span><span class="p">(</span><span class="n">mock_api</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">app.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">call_api</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">call_api</span><span class="p">(</span><span class="n">mock_api</span><span class="p">,</span> <span class="s2">&quot;test prompt&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;test response&quot;</span>
+    <span class="n">mock_api</span><span class="o">.</span><span class="n">generate</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="s2">&quot;test prompt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="running-tests">
+<h3>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run all tests</span>
+pytest<span class="w"> </span>tests/
+
+<span class="c1"># Run specific test function</span>
+pytest<span class="w"> </span>tests/test_tools/test_calculator.py::test_calculator_tool
+</pre></div>
+</div>
+</section>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading">#</a></h2>
+<section id="getting-unstuck">
+<h3>Getting Unstuck<a class="headerlink" href="#getting-unstuck" title="Link to this heading">#</a></h3>
+<p>If you’re stuck on a problem, we recommend to review documentation and browse existing issues first. If the issue still exists, please report it with relatively clear descriptions.</p>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Browse the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory for guides and references</p></li>
+<li><p><strong>GitHub Issues</strong>: <a class="reference external" href="https://github.com/terminal-agent/reptile/issues">Report bugs or request features</a></p></li>
+</ul>
+</section>
+<section id="reporting-issues">
+<h3>Reporting Issues<a class="headerlink" href="#reporting-issues" title="Link to this heading">#</a></h3>
+<p>When reporting bugs, it’s good to have:</p>
+<ol class="arabic simple">
+<li><p><strong>Description</strong>: Clear description of the issue. What are expected to happen and what actually happened.</p></li>
+<li><p><strong>Reproduction steps</strong>: Minimal steps to reproduce.</p></li>
+<li><p><strong>Environment</strong>: Python version, OS, relevant dependencies.</p></li>
+<li><p><strong>Logs</strong>: Any error messages, stack traces, or screenshots, if applicable.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../dev_ref/nodes/editor_node.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Editor Node</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="code_standards.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Code Standards</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">Environment Setup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-steps">Setup Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-installation">Verify Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-pipeline">Development Pipeline</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synchronize-updates">Synchronize Updates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-branch">Create a Branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-changes">Test Your Changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-and-push">Commit and Push</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-pull-request">Create a Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-standards">Code Standards</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">Testing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mocking-in-tests">Mocking in Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-unstuck">Getting Unstuck</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-issues">Reporting Issues</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SEA AI Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025-2025, SEA AI Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Dec 16, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Task Overview &#8212; Terminal-Agent</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=e645c8fa"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'task_ref/task_overview';</script>
+    <link rel="canonical" href="/Terminal-Agent-Docs/task_ref/task_overview.html" />
+    <link rel="icon" href="../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LoCoMo Task Design" href="task_design_locomo.html" />
+    <link rel="prev" title="Choose LLM Service" href="../basic_usage/llm_service.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Dec 16, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Terminal-Agent - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Terminal-Agent - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/cli_design.html">Autopilot CLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/run_sandbox.html">Run With Sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/tools.html">Tool Use for Agents</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/user_interface.html">Web Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/annotation.html">Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/evaluation.html">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic_usage/llm_service.html">Choose LLM Service</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Task Reference</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Task Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_locomo.html">LoCoMo Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_mmlu_pro.html">MMLU-Pro Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_swe.html">SWE-Bench Task Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="task_design_terminal_bench.html">Terminal-Bench Task Design</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow_design.html">Design Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/workflow/index.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/hooks/index.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_ref/nodes/index.html">Nodes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Guideline</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/dev_for_autopilot.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/code_standards.html">Code Standards</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/blob/main/task_ref/task_overview.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/edit/main/task_ref/task_overview.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/terminal-agent/reptile/issues/new?title=Issue%20on%20page%20%2Ftask_ref/task_overview.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/task_ref/task_overview.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Task Overview</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-task-and-benchmarks">Available Task and Benchmarks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-pipeline">Task Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-lifecycle">Task Lifecycle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-formats">Task Formats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation">Task Implementation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-task-properties">Key Task Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-task-methods">Key Task Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-new-tasks">Creating New Tasks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-existing-benchmark">For existing benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-completely-new-benchmark">For a completely new benchmark</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="task-overview">
+<h1>Task Overview<a class="headerlink" href="#task-overview" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>Tasks are the fundamental unit of work in Terminal-Agents. Each task represents a specific problem or challenge that the agent is expected to solve within an isolated Docker environment.</p>
+<p>A <strong>Task</strong> in Terminal Agents is:</p>
+<ul class="simple">
+<li><p>A self-contained problem specification with clear instructions</p></li>
+<li><p>An isolated execution environment (Docker container)</p></li>
+<li><p>A set of evaluation criteria to determine success</p></li>
+<li><p>Part of a benchmark suite for agent evaluation</p></li>
+</ul>
+<p>Tasks can range from simple shell operations to complex software engineering problems like fixing bugs in Github real-world repositories.</p>
+<p>Check <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/base.py</span></code> for structure of a basic Task.</p>
+<p>While a <strong>task</strong> is an individual problem instance, a <strong>benchmark</strong> is a collection of related tasks organized under a common evaluation framework. In Terminal-Agents, we integrate multiple benchmarks</p>
+</section>
+<section id="available-task-and-benchmarks">
+<h2>Available Task and Benchmarks<a class="headerlink" href="#available-task-and-benchmarks" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Benchmark Name</p></th>
+<th class="head"><p>Task Class</p></th>
+<th class="head"><p>Eval Criteria</p></th>
+<th class="head"><p>Directory</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">terminal_bench</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TerminalBenchTask</span></code></p></td>
+<td><p>rule-based</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/terminal-bench/tasks/</span></code></p></td>
+<td><p>https://github.com/laude-institute/terminal-bench</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">terminal_bench_sample</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TerminalBenchSampleTask</span></code></p></td>
+<td><p>rule-based</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/terminal-bench/tasks/</span></code></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">terminal_bench_focus</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TerminalBenchFocusTask</span></code></p></td>
+<td><p>rule-based</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/terminal-bench/tasks/</span></code></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">swe_bench</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SWEBenchTask</span></code></p></td>
+<td><p>rule-based</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/swe-bench/tasks/</span></code></p></td>
+<td><p>https://github.com/SWE-bench/SWE-bench</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">swebench_verified</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SWEBenchVerifiedTask</span></code></p></td>
+<td><p>swebench</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/swebench-verified/tasks/</span></code></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">swebench_verified_focus</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SWEBenchVerifiedFocusTask</span></code></p></td>
+<td><p>swebench</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/swebench-verified/tasks/</span></code></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">swegym</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SWEGymTask</span></code></p></td>
+<td><p>swebench</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/swegym/</span></code></p></td>
+<td><p>https://github.com/SWE-Gym/SWE-Gym</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">swegym</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SWEGymFocusTask</span></code></p></td>
+<td><p>swebench</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/swegym/</span></code></p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mmlu_pro</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MMLUProTask</span></code></p></td>
+<td><p>string-match</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/MMLU-Pro/</span></code></p></td>
+<td><p>https://github.com/TIGER-AI-Lab/MMLU-Pro</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">locomo</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">LocomoTask</span></code></p></td>
+<td><p>llm-judge</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">external/locomo/data/</span></code></p></td>
+<td><p>https://github.com/snap-research/locomo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>You could check modules in <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/</span></code> for more detailed task classes.</p>
+</section>
+<section id="task-pipeline">
+<h2>Task Pipeline<a class="headerlink" href="#task-pipeline" title="Link to this heading">#</a></h2>
+<p><img alt="task-pipeline" src="../_images/task_pipeline.jpg" /></p>
+<p>Note: Certain task types may include task-specific or variant steps, but the overall workflow follows the diagram above.</p>
+</section>
+<section id="task-lifecycle">
+<h2>Task Lifecycle<a class="headerlink" href="#task-lifecycle" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Task Selection and Instantiation: A Task class could be registered and chosen from with <code class="docutils literal notranslate"><span class="pre">TaskRegistry</span></code>.</p></li>
+<li><p>Task Environment Setup: Launch the Docker container for the task via <code class="docutils literal notranslate"><span class="pre">Task.launch_container</span></code>. In this step, the docker image will be built and run, and necessary files will be copied from host to the container.</p></li>
+<li><p>Task Execution: The agent is invoked with the task description within the container.</p></li>
+<li><p>Evaluation: After agent execution, the result files are copied back to the host, and the task’s evaluation is executed based on specific eval criteria.</p></li>
+<li><p>Cleanup: Clean up Docker resources based on cache level via <code class="docutils literal notranslate"><span class="pre">Task.cleanup_resources</span></code>.</p></li>
+</ol>
+</section>
+<section id="task-formats">
+<h2>Task Formats<a class="headerlink" href="#task-formats" title="Link to this heading">#</a></h2>
+<p>Different benchmarks use different task configuration formats. Check corresponding docs for clarifications.</p>
+<p><a class="reference internal" href="task_design_swe.html"><span class="std std-doc">SWE-Bench Format</span></a>,
+<a class="reference internal" href="task_design_terminal_bench.html"><span class="std std-doc">Terminal-Bench Task Format</span></a>,
+<a class="reference internal" href="task_design_mmlu_pro.html"><span class="std std-doc">MMLU-Pro Format</span></a>,
+<a class="reference internal" href="task_design_locomo.html"><span class="std std-doc">Locomo Format</span></a></p>
+</section>
+<section id="task-implementation">
+<h2>Task Implementation<a class="headerlink" href="#task-implementation" title="Link to this heading">#</a></h2>
+<p>Terminal-Agents supports multiple benchmark suites, each with its own task implementation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Task (Abstract Base Class)
+├── TerminalBenchTask
+│   ├── TerminalBenchFocusTask
+│   └── TerminalBenchSampleTask
+├── SWEBenchTask
+│   ├── SWEBenchVerifiedTask
+│   │   └── SWEBenchVerifiedFocusTask
+│   └── SWEGymTask
+├── MMLUProTask
+└── LocomoTask
+</pre></div>
+</div>
+<section id="key-task-properties">
+<h3>Key Task Properties<a class="headerlink" href="#key-task-properties" title="Link to this heading">#</a></h3>
+<p>Every task implementation must define these abstract properties:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">compose_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Path to Docker Compose configuration file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">container_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Unique Docker container identifier for the task instance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">description</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Human-readable task instruction given to the agent</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">eval_script</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>Path to evaluation script inside the container</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">envs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">str]</span></code></p></td>
+<td><p>Environment variables for Docker operations</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">files_to_copy</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">list[tuple[str,</span> <span class="pre">str]]</span></code></p></td>
+<td><p>Files to copy into container (source, target)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="key-task-methods">
+<h3>Key Task Methods<a class="headerlink" href="#key-task-methods" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">launch_container()</span></code></p></td>
+<td><p>Sets up Docker container, builds image, copies files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">copy_to_host()</span></code></p></td>
+<td><p>Copies result files from container back to host</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cleanup_resources()</span></code></p></td>
+<td><p>Stops and removes Docker container and images</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generate_solution()</span></code></p></td>
+<td><p>Returns path to reference solution (if available)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">from_name(cls,</span> <span class="pre">name,</span> <span class="pre">benchmark)</span></code></p></td>
+<td><p>Factory method to create task instances</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="creating-new-tasks">
+<h2>Creating New Tasks<a class="headerlink" href="#creating-new-tasks" title="Link to this heading">#</a></h2>
+<section id="for-existing-benchmark">
+<h3>For existing benchmark<a class="headerlink" href="#for-existing-benchmark" title="Link to this heading">#</a></h3>
+<p>To create new tasks for existing benchmarks such as Terminal-Bench and SWE-Bench, you could create a new directory under corresponding benchmark directory, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>external/terminal-bench/tasks/my-new-task
+</pre></div>
+</div>
+<p>Then create necessary files (vary from benchmark types) for that task, including but not limited to files describing the task/problem/conversation, files for testing, and files for building the environments. Note to make scripts executable, if applicable.</p>
+<p>Then the task will be automatically discovered by <code class="docutils literal notranslate"><span class="pre">TerminalBenchTask.task_names()</span></code>.</p>
+</section>
+<section id="for-a-completely-new-benchmark">
+<h3>For a completely new benchmark<a class="headerlink" href="#for-a-completely-new-benchmark" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Create task class in <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/my_benchmark.py</span></code>:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@TASKS</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;my_benchmark&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyBenchmarkTask</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">Task</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">benchmark</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">benchmark</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;external/my-benchmark/tasks&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">task_names</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of task names.&quot;&quot;&quot;</span>
+        <span class="n">tasks_dir</span> <span class="o">=</span> <span class="s2">&quot;external/my-benchmark/tasks&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">tasks_dir</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tasks_dir</span><span class="p">,</span> <span class="n">d</span><span class="p">))]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load task description from task.yaml.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dir</span><span class="p">,</span> <span class="s2">&quot;task.yaml&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s2">&quot;instruction&quot;</span><span class="p">]</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Refer to the implementation of Task classes of different benchmarks in <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/</span></code>.</p>
+<ol class="arabic simple" start="2">
+<li><p>Register in module <code class="docutils literal notranslate"><span class="pre">autopilot/evaluation/tasks/__init__.py</span></code>:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.my_benchmark</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyBenchmarkTask</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Create or pull your custom task directory structure. For example (terminal-bench task format):</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>external/my-benchmark/
+└── tasks/
+    └── task-1/
+        ├── task.yaml
+        ├── docker-compose.yaml
+        └── run-tests.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Use the new benchmark:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>autopilot<span class="w"> </span>evaluate<span class="w"> </span>--benchmark<span class="w"> </span>my_benchmark<span class="w"> </span>--eval-criteria<span class="w"> </span>rule-based<span class="w"> </span>--task<span class="w"> </span>task-1
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../basic_usage/llm_service.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Choose LLM Service</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="task_design_locomo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LoCoMo Task Design</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#available-task-and-benchmarks">Available Task and Benchmarks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-pipeline">Task Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-lifecycle">Task Lifecycle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-formats">Task Formats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-implementation">Task Implementation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-task-properties">Key Task Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-task-methods">Key Task Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-new-tasks">Creating New Tasks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-existing-benchmark">For existing benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-a-completely-new-benchmark">For a completely new benchmark</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SEA AI Lab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025-2025, SEA AI Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on Dec 16, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

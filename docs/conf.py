@@ -34,7 +34,7 @@ extensions = [
   "sphinxcontrib.mermaid",
   "nbsphinx",
   "sphinx.ext.mathjax",
-  "sphinx_design"
+  "sphinx_design",
 ]
 
 nbsphinx_allow_errors = True

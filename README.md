@@ -131,9 +131,9 @@ autopilot evaluate --benchmark swegym --task pandas-dev__pandas-47504 --terminal
 
 ## 📚 Documentation
 
-We host a [documentation website](https://terminal-agent.github.io/reptile/) covering both basic and advanced features of Reptile.
+We maintain a comprehensive [documentation website](https://terminal-agent.github.io/reptile/) that covers both basic usage and advanced features of Reptile.
 
-Alternatively, you can view the documentation locally using the [doc index](docs/README.md).
+For offline access, you can also browse the documentation locally via the [doc index](docs/README.md).
 
 ## 📝 Open Blogs
 

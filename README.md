@@ -96,6 +96,28 @@ autopilot config init
 autopilot run --terminal
 ```
 
+### Demonstrations
+
+Click on the videos below to watch:
+
+<table>
+  <tr>
+    <td width="50%">
+      <a href="https://www.youtube.com/watch?v=_ENWi5uxupo">
+        <img src="https://img.youtube.com/vi/_ENWi5uxupo/0.jpg" alt="Reptile Quickstart" width="100%">
+      </a>
+      <p align="center">Quickstart in Two Minutes</p>
+    </td>
+    <td width="50%">
+      <a href="https://www.youtube.com/watch?v=izcwX2tMsnU&t=2s">
+        <img src="https://img.youtube.com/vi/izcwX2tMsnU/0.jpg" alt="Reptile Annotation" width="100%">
+      </a>
+      <p align="center">Human-in-the-Loop  Annotation</p>
+    </td>
+  </tr>
+</table>
+
+
 ### 🐳 Run Terminal-Bench or SWE-Bench in Sandbox
 
 ```sh
@@ -112,17 +134,17 @@ autopilot evaluate --benchmark swegym --task pandas-dev__pandas-47504 --terminal
 
 ## 📚 Documentation
 
-We host a [documentation website](https://terminal-agent.github.io/reptile/) covering both basic and advanced features of Reptile.
+We maintain a comprehensive [documentation website](https://terminal-agent.github.io/reptile/) that covers both basic usage and advanced features of Reptile.
 
-Alternatively, you can view the documentation locally using the [doc index](docs/README.md).
+For offline access, you can also browse the documentation locally via the [doc index](docs/README.md).
 
 ## 📝 Open Blogs
 
 We maintain a series of blog posts to document our progress and share insights.
 
-- [Terminal-Backend: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
-- [Workflow: the roadmap of Reptile project](https://terminal-agent.github.io/blog/workflow/)
-- [Data Annotation: How to make human annotation more effective](https://terminal-agent.github.io/blog/annotation/)
+- [Terminal Tool: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
+- [Workflow: How to achieve human-in-the-loop learning](https://terminal-agent.github.io/blog/workflow/)
+- [Data: How to achieve on-policy annotation for better learning](https://terminal-agent.github.io/blog/annotation/)
 - [WIP] RL Training
 
 We hope our lessons learned and experiences can accelerate the development of autonomous/AGI agents.
@@ -133,11 +155,11 @@ We hope our lessons learned and experiences can accelerate the development of au
 If you find Reptile useful in your research or applications, please cite:
 
 ```bibtex
-@misc{reptile2025workflow,
+@misc{reptile2025,
   title={Reptile: Terminal-Agent with Human-in-the-loop Learning},
-  author={Dou, Longxu and Li, Shenggui and Du, Cunxiao and Wang, Tianduo and Zhang, Tianjie and Liu, Tianyu and Chen, Xianwei and Tang, Chenxia and Zhao, Yuanheng and Lin, Min},
+  author={Dou, Longxu and Du, Cunxiao and Li, Shenggui and Wang, Tianduo and Zhang, Tianjie and Liu, Tianyu and Chen, Xianwei and Tang, Chenxia and Zhao, Yuanheng and Lin, Min},
   year={2025},
-  howpublished={\url{https://terminal-agent.github.io/blog/workflow/}},
-  note={Blog}
+  url={https://github.com/terminal-agent/reptile},
+  note={GitHub repository}
 }
 ```

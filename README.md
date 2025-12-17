@@ -97,14 +97,22 @@ autopilot run --terminal
 ```
 
 ### Demonstartions
-This video shows how to use the Reptile in two minutes.
-
-[![Reptile Quickstart](https://img.youtube.com/vi/_ENWi5uxupo/0.jpg)](https://www.youtube.com/watch?v=_ENWi5uxupo)
-
-
-This video shows how to do human-in-the-loop sft annotation.
-
-[![Reptile Annotation](https://img.youtube.com/vi/izcwX2tMsnU/0.jpg)](https://www.youtube.com/watch?v=izcwX2tMsnU&t=2s)
+<table>
+  <tr>
+    <td width="50%">
+      <a href="https://www.youtube.com/watch?v=_ENWi5uxupo">
+        <img src="https://img.youtube.com/vi/_ENWi5uxupo/0.jpg" alt="Reptile Quickstart" width="100%">
+      </a>
+      <p align="center">Quickstart in Two Minutes</p>
+    </td>
+    <td width="50%">
+      <a href="https://www.youtube.com/watch?v=izcwX2tMsnU&t=2s">
+        <img src="https://img.youtube.com/vi/izcwX2tMsnU/0.jpg" alt="Reptile Annotation" width="100%">
+      </a>
+      <p align="center">Human-in-the-Loop SFT Annotation</p>
+    </td>
+  </tr>
+</table>
 
 
 ### 🐳 Run Terminal-Bench or SWE-Bench in Sandbox

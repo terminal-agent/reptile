@@ -164,14 +164,14 @@ def run_autopilot(
       "--log-to-mongodb/--no-log-to-mongodb",
       help="Control whether to push the data to telemetry",
     ),
-  ] = True,
+  ] = False,
   log_to_github: Annotated[
     bool,
     typer.Option(
       "--log-to-github/--no-log-to-github",
       help="Control whether to push the data to github",
     ),
-  ] = True,
+  ] = False,
   strong_scaffold: Annotated[
     bool,
     typer.Option(

@@ -10,7 +10,7 @@ git lfs install  # make sure this succeeds, otherwise you may need to install lf
 git clone https://github.com/terminal-agent/reptile.git --recurse-submodules
 
 # Install the autopilot package
-cd Terminal-Agents
+cd reptile
 ```
 
 Then you can install `autopilot` with the command below:
@@ -30,6 +30,9 @@ pip install -v .
 We recommend you to create a new virtual environment for the terminal agent.
 
 ```bash
+### install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 uv venv --python 3.11
 source .venv/bin/activate
 

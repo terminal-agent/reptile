@@ -155,11 +155,11 @@ We hope our lessons learned and experiences can accelerate the development of au
 If you find Reptile useful in your research or applications, please cite:
 
 ```bibtex
-@misc{reptile2025workflow,
+@misc{reptile2025,
   title={Reptile: Terminal-Agent with Human-in-the-loop Learning},
-  author={Dou, Longxu and Li, Shenggui and Du, Cunxiao and Wang, Tianduo and Zhang, Tianjie and Liu, Tianyu and Chen, Xianwei and Tang, Chenxia and Zhao, Yuanheng and Lin, Min},
+  author={Dou, Longxu and Du, Cunxiao and Li, Shenggui and Wang, Tianduo and Zhang, Tianjie and Liu, Tianyu and Chen, Xianwei and Tang, Chenxia and Zhao, Yuanheng and Lin, Min},
   year={2025},
-  howpublished={\url{https://terminal-agent.github.io/blog/workflow/}},
-  note={Blog}
+  url={https://github.com/terminal-agent/reptile},
+  note={GitHub repository}
 }
 ```

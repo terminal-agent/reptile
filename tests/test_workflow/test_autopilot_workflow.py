@@ -35,8 +35,7 @@ def test_autopilot_workflow(
       GitHubTelemetryHook(
         name=f"autopilot-refactoring-{time.time()}",
         remote_url="git@github.com:Sailor-Agents/yaml_data.git",
-        ssh_key_path=os.path.dirname(os.path.abspath(__file__))
-        + "/autopilot/context/credentials/sailor-agents_ed25519",
+        ssh_key_path=os.path.expanduser("~/.ssh/id_rsa"),
       )
     )
   workflow.run()

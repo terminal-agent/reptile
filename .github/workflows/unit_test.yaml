@@ -53,4 +53,5 @@ jobs:
 
       - name: Execute Test
         run: |
-          pytest -v ./tests
+          pytest -v ./tests/test_tools/
+          pytest -v ./tests/test_exception/

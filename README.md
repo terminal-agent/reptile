@@ -96,6 +96,17 @@ autopilot config init
 autopilot run --terminal
 ```
 
+### Demonstartions
+This video shows how to use the Reptile in two minutes.
+
+[![Reptile Quickstart](https://img.youtube.com/vi/_ENWi5uxupo/0.jpg)](https://www.youtube.com/watch?v=_ENWi5uxupo)
+
+
+This video shows how to do human-in-the-loop sft annotation.
+
+[![Reptile Annotation](https://img.youtube.com/vi/izcwX2tMsnU/0.jpg)](https://www.youtube.com/watch?v=izcwX2tMsnU&t=2s)
+
+
 ### 🐳 Run Terminal-Bench or SWE-Bench in Sandbox
 
 ```sh

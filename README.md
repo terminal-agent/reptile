@@ -96,7 +96,10 @@ autopilot config init
 autopilot run --terminal
 ```
 
-### Demonstartions
+### Demonstrations
+
+Click on the videos below to watch:
+
 <table>
   <tr>
     <td width="50%">
@@ -109,7 +112,7 @@ autopilot run --terminal
       <a href="https://www.youtube.com/watch?v=izcwX2tMsnU&t=2s">
         <img src="https://img.youtube.com/vi/izcwX2tMsnU/0.jpg" alt="Reptile Annotation" width="100%">
       </a>
-      <p align="center">Human-in-the-Loop SFT Annotation</p>
+      <p align="center">Human-in-the-Loop  Annotation</p>
     </td>
   </tr>
 </table>
@@ -139,9 +142,9 @@ For offline access, you can also browse the documentation locally via the [doc i
 
 We maintain a series of blog posts to document our progress and share insights.
 
-- [Terminal-Backend: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
-- [Workflow: the roadmap of Reptile project](https://terminal-agent.github.io/blog/workflow/)
-- [Data Annotation: How to make human annotation more effective](https://terminal-agent.github.io/blog/annotation/)
+- [Terminal Tool: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
+- [Workflow: How to achieve human-in-the-loop learning](https://terminal-agent.github.io/blog/workflow/)
+- [Data: How to achieve on-policy annotation for better learning](https://terminal-agent.github.io/blog/annotation/)
 - [WIP] RL Training
 
 We hope our lessons learned and experiences can accelerate the development of autonomous/AGI agents.

@@ -1,20 +1,5 @@
 # Reptile: Terminal Agent with Human-in-the-Loop Learning
 
-## 🔎 Table of Contents
-
-- [📝 Overview](#-overview)
-  - [⚡ Functions](#-functions)
-- [🚀 Setup](#-setup)
-  - [📍 Run Locally](#-run-locally)
-  - [🐳 Run with Docker](#-run-with-docker)
-- [📚 Documentation](#-documentation)
-  - [🚀 Get Started](#-get-started)
-  - [⚙️ Basic Usage](#️-basic-usage)
-  - [🔧 Developer Reference](#-developer-reference)
-  - [📋 Developer Guideline](#-developer-guideline)
-  - [📝 Task Reference](#-task-reference)
-- [📝 Open Blogs](#-open-blogs)
-
 ## 📝 Overview
 
 Reptile is a Terminal Agent that enables interaction with an LLM agent directly in your terminal. The agent can execute any command or custom CLI tool to accomplish tasks, and users can define their own tools and commands for the agent to utilize.
@@ -74,9 +59,11 @@ Compared with other CLI agents (e.g., Claude Code and Mini SWE-Agent), Reptile s
 
 ## 🚀 Setup
 
-This section will guide you through the installation and setup of the Terminal Agent.
+This section will guide you through the installation and setup of the Reptile.
 
-### 📍 Run locally
+**Why Choose Reptile?** Unlike other agent tools, Reptile is designed to be developer-friendly: **you can get started quickly without Docker**, and **easily use your own locally deployed LLM service** (OpenAI-compatible API format). We believe a development tool should adapt to how developers want to set it up, not force them into a specific deployment model.
+
+### 📍 Run locally (no sandbox required)
 
 **Step 1. Install autopilot**
 
@@ -85,7 +72,11 @@ This section will guide you through the installation and setup of the Terminal A
 git lfs install  # make sure this succeeds, otherwise you may need to install lfs first.
 git clone git@github.com:terminal-agent/reptile.git --recurse-submodules
 
-# Install the autopilot package
+# If you forget to clone with --recurse-submodules,
+# run `git submodule update --init --recursive`
+
+
+# Install the autopilot package (ensure your python version>=3.11)
 cd reptile
 
 # if you are a developer, you can install the package in development mode
@@ -121,46 +112,18 @@ autopilot evaluate --benchmark swegym --task pandas-dev__pandas-47504 --terminal
 
 ## 📚 Documentation
 
-### 🚀 Get Started
+We host a [documentation website](https://terminal-agent.github.io/reptile/) covering both basic and advanced features of Reptile.
 
-- [Quickstart Guide](docs/get_started/quickstart.md) - Get up and running quickly
-- [Run Sandbox](docs/get_started/run_sandbox.md) - Running Terminal-Bench or SWE-Bench in sandbox
-- [CLI Design](docs/get_started/cli_design.md) - Command line interface design
-- [Tools](docs/get_started/tools.md) - Available tools and utilities
-
-### ⚙️ Basic Usage
-
-- [Annotation](docs/basic_usage/annotation.md) - Annotation system usage
-- [LLM Service](docs/basic_usage/llm_service.md) - Large language model service configuration
-- [Evaluation](docs/basic_usage/evaluation.md) - Evaluation framework and metrics
-- [User Interface](docs/basic_usage/user_interface.md) - User interface components
-
-### 🔧 Developer Reference
-
-- [Workflow Design](docs/dev_ref/workflow_design.md) - Workflow architecture and design
-- [Workflow Components](docs/dev_ref/workflow/index.rst) - Detailed workflow components
-- [Hooks System](docs/dev_ref/hooks/index.rst) - Hooks and event system
-- [Nodes](docs/dev_ref/nodes/index.rst) - Node-based execution system
-
-### 📋 Developer Guideline
-
-- [Development for Autopilot](docs/dev_guide/dev_for_autopilot.md) - Development guidelines for autopilot
-- [Code Standards](docs/dev_guide/code_standards.md) - Coding standards and best practices
-
-### 📝 Task Reference
-
-- [SWE Task Design](docs/task_ref/swe_task_design.md) - Software engineering task design
-
+Alternatively, you can view the documentation locally using the [doc index](docs/README.md).
 
 ## 📝 Open Blogs
 
 We maintain a series of blog posts to document our progress and share insights.
 
-- [Docs: How to use Reptile as an agent researcher/user](https://terminal-agent.github.io/reptile/)
-- [Workflow: What's the roadmap of Reptile project](https://terminal-agent.github.io/blog/workflow/)
-- [Data Annotation: How to make human annotation more effective](https://terminal-agent.github.io/blog/annotation/)
 - [Terminal-Backend: How to detect the boundary of REPL](https://terminal-agent.github.io/blog/tool/)
-- [WIP] More efficient Training
+- [Workflow: the roadmap of Reptile project](https://terminal-agent.github.io/blog/workflow/)
+- [Data Annotation: How to make human annotation more effective](https://terminal-agent.github.io/blog/annotation/)
+- [WIP] RL Training
 
 We hope our lessons learned and experiences can accelerate the development of autonomous/AGI agents.
 

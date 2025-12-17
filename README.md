@@ -149,6 +149,9 @@ We maintain a series of blog posts to document our progress and share insights.
 
 We hope our lessons learned and experiences can accelerate the development of autonomous/AGI agents.
 
+## Acknowledgement
+
+We are grateful for the excellent community work that has inspired this project, including [terminal-bench](https://www.tbench.ai/) and [mini-SWE-agent](https://github.com/SWE-agent/mini-swe-agent). We sincerely thank the community for their valuable contributions and insights.
 
 ## Citation
 

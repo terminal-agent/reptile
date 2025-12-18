@@ -26,9 +26,11 @@ Compared with other CLI agents (e.g., Claude Code and Mini SWE-Agent), Reptile s
 - **Human-in-the-Loop Learning**: Users can inspect every step and provide prompt feedback, i.e., give feedback under the USER role or edit the LLM generation under the ASSISTANT role.
 
 
-<figure style="text-align: center; margin: 1rem 0;">
-  <img src="https://hackmd.io/_uploads/Syidwml7be.png" style="width: 60%; display: block; margin: 0 auto;">
-</figure>
+<div align="center">
+
+<img src="https://hackmd.io/_uploads/Syidwml7be.png" style="width: 55%;">
+
+</div>
 
 
 ### ⚡ Functions

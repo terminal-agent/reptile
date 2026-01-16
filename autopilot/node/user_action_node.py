@@ -1,11 +1,13 @@
 import os
 import re
 import tempfile
+from pathlib import Path
 from threading import Event
 from typing import Any, Dict, Optional, Tuple
 
 from pydantic import Extra
 
+from autopilot.constants import _SCRATCHPAD_ROOT
 from autopilot.data import (
   ContextData,
   DirectActionExtraInfo,
@@ -16,8 +18,9 @@ from autopilot.data import (
   MessageType,
   WorkflowConfig,
 )
+from autopilot.terminal._utils import cp_to_container
 from autopilot.terminal.term import Term
-from autopilot.utils import extract_commands
+from autopilot.utils import execute_cmd, extract_commands
 
 from .base import BaseNode, NodeOutputType, Role
 from .llm_node import LLMNode
@@ -303,6 +306,194 @@ class UserActionNode(BaseNode):
       self.append_and_print(Role.USER, "user", feedback, data)
       return self.llm_node, None
 
+  def _get_scratchpad_dir(self) -> Path:
+    """
+    Get the scratchpad directory path. Uses ~/.cache/autopilot-scratchpad as root
+    to support both Docker container and host (no Docker) environments.
+
+    Returns:
+        Path: the scratchpad directory path
+    """
+    scratchpad_dir = _SCRATCHPAD_ROOT / str(self.workflow_config.name)
+    scratchpad_dir.mkdir(parents=True, exist_ok=True)
+    return scratchpad_dir
+
+  def _get_next_scratchpad_path(self) -> str:
+    """
+    Get the next available scratchpad file path with incremental naming.
+
+    Returns:
+        str: the next scratchpad file path
+    """
+    scratchpad_dir = self._get_scratchpad_dir()
+    counter = 0
+    while True:
+      path = scratchpad_dir / f"scratchpad_{counter}.md"
+      if not path.exists():
+        return str(path)
+      counter += 1
+
+  def _offload(self, step_idx: int, data: ContextData) -> str:
+    """
+    Offload a single context step to scratchpad file.
+
+    Args:
+        step_idx (int): the step index to offload
+        data (ContextData): the context data
+
+    Returns:
+        str: the path pointer to the scratchpad file
+    """
+    # substack_top points to the current offload command itself
+    substack_top = len(data.substack) - 1
+
+    # Edge case: step_idx out of range
+    if step_idx < 0 or step_idx >= substack_top:
+      raise ValueError(
+        f"Step index {step_idx} out of range, must be in 0 <= step_idx < {substack_top}."
+      )
+
+    # Map to absolute index
+    abs_step_idx = step_idx + data.substack_bottom
+    msg = data.current_branch[abs_step_idx]
+
+    # Write offloaded content to scratchpad file on host
+    host_scratchpad_path = self._get_next_scratchpad_path()
+    offload_content = f"## Step {msg.step} ({msg.role.value})\n\n{msg.content}"
+
+    try:
+      with open(host_scratchpad_path, "w", encoding="utf-8") as f:
+        f.write(offload_content)
+    except Exception as e:
+      raise RuntimeError(f"Failed to write scratchpad file: {e}")
+
+    # Determine file path based on sandbox configuration
+    if self.workflow_config.sandbox:
+      # Create directory in container first, then copy file
+      container_dir = "/tmp/scratchpad"
+      container_path = f"{container_dir}/{Path(host_scratchpad_path).name}"
+      execute_cmd(
+        [
+          "docker",
+          "exec",
+          self.workflow_config.sandbox,
+          "mkdir",
+          "-p",
+          container_dir,
+        ]
+      )
+      cp_to_container(
+        self.workflow_config.sandbox, host_scratchpad_path, container_path
+      )
+      file_path = container_path
+    else:
+      file_path = host_scratchpad_path
+
+    # Get file stats
+    file_size = os.path.getsize(host_scratchpad_path)
+    line_count = offload_content.count("\n") + 1
+
+    # Replace offloaded step with path pointer
+    path_ptr_message = (
+      f"Offloaded step {step_idx} to scratchpad.\n"
+      f"Path: `{file_path}`\n"
+      f"Size: {file_size} bytes, Lines: {line_count}\n"
+      f'Use `reload("{file_path}")` for file info, or read directly with `cat {file_path}`.'
+    )
+
+    append_on_top = [
+      Message(
+        role=Role.USER,
+        name="user",
+        content=path_ptr_message,
+        step=data.num_steps,
+        traj=data.current_branch_idx,
+        task_id=data.current_task_id,
+      )
+    ] + data.current_branch[abs_step_idx + 1 : -1]
+
+    data.branch_at(abs_step_idx - 1)
+
+    for item in append_on_top:
+      self.append_and_print(item.role, item.name, item.content, data)
+
+    return file_path
+
+  def _build_scratchpad_info_message(
+    self,
+    path_ptr: str,
+    file_size: Optional[int] = None,
+    line_count: Optional[int] = None,
+  ) -> str:
+    """Build info message for scratchpad file."""
+    stats = ""
+    if file_size is not None and line_count is not None:
+      stats = f"Size: {file_size} bytes\nLines: {line_count}\n"
+
+    return (
+      f"## Scratchpad File Info\n\n"
+      f"Path: `{path_ptr}`\n"
+      f"{stats}\n"
+      f"Read options:\n"
+      f"- Full content: `cat {path_ptr}`\n"
+      f"- First N lines: `head -n N {path_ptr}`\n"
+      f"- Last N lines: `tail -n N {path_ptr}`\n"
+      f"- Search pattern: `grep 'pattern' {path_ptr}`"
+    )
+
+  def _reload(self, path_ptr: str, data: ContextData) -> None:
+    """
+    Return file info for the scratchpad file, allowing LLM to choose read method.
+
+    Args:
+        path_ptr (str): the path pointer to the scratchpad file
+        data (ContextData): the context data
+    """
+    # Edge case: path_ptr cannot be empty
+    if not path_ptr or not path_ptr.strip():
+      self.append_and_print(
+        Role.USER,
+        "user",
+        "Reload failed: path_ptr cannot be empty.",
+        data,
+      )
+      return
+
+    # When running in sandbox, path_ptr is a container path, cannot check from host
+    if self.workflow_config.sandbox:
+      info_message = self._build_scratchpad_info_message(path_ptr)
+      self.append_and_print(Role.USER, "user", info_message, data)
+      return
+
+    # Edge case: scratchpad file not found (host mode only)
+    if not os.path.exists(path_ptr):
+      self.append_and_print(
+        Role.USER,
+        "user",
+        f"Reload failed: scratchpad file not found at `{path_ptr}`.",
+        data,
+      )
+      return
+
+    # Get file info (host mode)
+    try:
+      file_size = os.path.getsize(path_ptr)
+      with open(path_ptr, "r", encoding="utf-8") as f:
+        content = f.read()
+      line_count = content.count("\n") + 1 if content else 0
+
+      info_message = self._build_scratchpad_info_message(
+        path_ptr, file_size, line_count
+      )
+      self.append_and_print(Role.USER, "user", info_message, data)
+    except Exception as e:
+      self.append_and_print(
+        Role.USER,
+        "user",
+        f"Reload failed with error: {e}",
+        data,
+      )
+
   def _summarize(self, start_idx, end_idx, summary, data):
     # Summarize data.substack[start_idx:end_idx]
 
@@ -405,7 +596,9 @@ class UserActionNode(BaseNode):
     available_objects = {
       "summarize": lambda start_idx, end_idx, summary: self._summarize(
         start_idx, end_idx, summary, data
-      )
+      ),
+      "offload": lambda step_idx: self._offload(step_idx, data),
+      "reload": lambda path_ptr: self._reload(path_ptr, data),
     }
     try:
       # Execute the command. Use exec for multi-line statements.

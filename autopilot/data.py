@@ -186,16 +186,19 @@ class WorkflowConfig:
     system_prompt (str): the system prompt to use for the workflow
     sandbox (Optional[str]): the sandbox to use for the workflow, default to None
     model (Optional[str]): the model to use for the workflow, default to None
+    name (Optional[str]): the name of the task session, default to None
     zmq_host (Optional[str]): the host to use for the ZMQ connection, default to None
     zmq_port (Optional[int]): the port to use for the ZMQ connection, default to None
     max_steps (Optional[int]): the maximum number of total steps, default to None
     max_current_steps (Optional[int]): the maximum number of steps in the current branch, default to None
     time_out (Optional[int]): the timeout in seconds, default to None
     strong_scaffold (bool): enable strong scaffold mode to control terminal node behavior, default to False
+    dpo_samples (Optional[int]): the number of samples for DPO, default to 0
   """
 
   interaction_mode: InteractionMode
   system_prompt: str
+  name: Optional[str] = None
   sandbox: Optional[str] = None
   model: Optional[str] = None
   zmq_host: Optional[str] = None
@@ -204,6 +207,7 @@ class WorkflowConfig:
   max_current_steps: Optional[int] = None
   time_out: Optional[int] = None
   strong_scaffold: bool = False
+  dpo_samples: Optional[int] = 0
 
 
 @dataclass

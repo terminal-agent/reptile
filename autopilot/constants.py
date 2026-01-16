@@ -11,4 +11,5 @@ _IMAGE_NAME = "autopilot"
 
 # session-related
 _CACHE_ROOT = _HOME.joinpath(".cache/autopilot")
+_SCRATCHPAD_ROOT = _HOME.joinpath(".cache/autopilot-scratchpad")
 _DEFAULT_MAX_TOKENS = 163840

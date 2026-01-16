@@ -212,6 +212,7 @@ def run_autopilot(
   workflow_config = WorkflowConfig(
     interaction_mode=InteractionMode(interaction),
     sandbox=sandbox,
+    name=name,
     model=model,
     max_steps=max_steps,
     max_current_steps=max_current_steps,

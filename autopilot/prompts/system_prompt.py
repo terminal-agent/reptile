@@ -78,6 +78,29 @@ Here are the rules for summarization:
 4. When you have a long installation or build process that produces a lot of output, you MUST `summarize` it to keep only the important parts.
 5. When you repeatedly get the same error over and over, you MUST `summarize` the previous attempts to keep only the important parts.
 
+# Offloading
+
+You can offload context steps to external storage (scratchpad) to reduce context size. This is useful for tool outputs (redundant, structured), web-searching results (redundant, structured), and complex task TODO lists.
+
+```context
+offload(step_idx)
+```
+
+The step at `step_idx` will be offloaded to a scratchpad file, and a path pointer with file info will be inserted into context. Each step is saved to a separate scratchpad file.
+
+To get file info and read options for a scratchpad file:
+
+```context
+reload("path/to/scratchpad_0.md")
+```
+
+This returns the file path, size, and line count, along with suggested read methods (cat, head, tail, grep) for you to choose from.
+
+Here are the rules for offloading:
+1. Use offloading for **static information** that you've already processed but might need later.
+2. Each step is offloaded to a separate file, preserving history without overwriting.
+3. Use `reload(path_ptr)` to get file info, then use terminal commands (cat, head, grep, etc.) to read content as needed.
+
 
 # Examples
 
